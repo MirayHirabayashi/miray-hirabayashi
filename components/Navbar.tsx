@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { navLinks, site } from "@/lib/site";
 import { Container } from "@/components/ui";
 import { MenuIcon, CloseIcon } from "@/components/icons";
@@ -10,27 +10,12 @@ import { MenuIcon, CloseIcon } from "@/components/icons";
 export function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  // Add a hairline + blur once the user scrolls away from the top.
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
-    <header
-      className={`sticky top-0 z-50 transition-colors duration-300 ${
-        scrolled
-          ? "border-b border-border bg-bg/80 backdrop-blur-md"
-          : "border-b border-transparent"
-      }`}
-    >
+    <header className="sticky top-0 z-50 border-b border-border bg-bg/80 backdrop-blur-md">
       <Container>
         <nav className="flex h-16 items-center justify-between">
           <Link
