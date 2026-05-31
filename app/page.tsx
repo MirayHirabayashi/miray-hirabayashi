@@ -22,7 +22,7 @@ export default function Home() {
   return (
     <>
       {/* ---------------------------------------------------------------- Hero */}
-      <section className="relative flex min-h-[calc(100svh-4rem)] items-center overflow-hidden">
+      <section className="relative overflow-hidden py-20 sm:py-32">
         {/* Ambient background glow */}
         <div
           aria-hidden
@@ -54,7 +54,8 @@ export default function Home() {
                 View Projects
                 <ArrowRightIcon width={18} height={18} />
               </ButtonLink>
-              <ButtonAnchor
+              // TODO: Add Apple App Store link when app is published
+              {/* <ButtonAnchor
                 href={site.appUrl}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -62,17 +63,11 @@ export default function Home() {
               >
                 <AppleIcon width={18} height={18} />
                 Download App
-              </ButtonAnchor>
+              </ButtonAnchor> */}
               <ButtonLink href="/contact" variant="secondary">
                 <MailIcon width={18} height={18} />
                 Contact
               </ButtonLink>
-            </div>
-
-            <div className="mt-10 flex flex-wrap gap-2">
-              {["TypeScript", "React", "Next.js", "Java", "Python"].map((t) => (
-                <Tag key={t}>{t}</Tag>
-              ))}
             </div>
           </div>
         </Container>
