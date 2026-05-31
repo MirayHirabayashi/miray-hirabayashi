@@ -71,6 +71,17 @@ export const projects: Project[] = [
     tech: ["Python", "scikit-learn", "pandas", "matplotlib"],
     github: "https://github.com/MirayHirabayashi/stock-price-predictor",
   },
+  {
+    slug: "inkspeed",
+    title: "inkspeed",
+    summary: "A dark-themed, minimalist typing speed test web application, built with React and styled using Tailwind CSS.",
+    description:
+      "A minimalist, dark-themed typing speed test web app built with React and Tailwind CSS. It delivers a clean and focused typing experience with real-time stats and a responsive design.",
+    tech: ["React", "JavaScript", "Tailwind CSS"],
+    github: "https://github.com/MirayHirabayashi/inkspeed",
+    demo: "https://inkspeed.vercel.app/",
+    featured: true,
+  },
 ];
 
 export const skills: { group: string; items: string[] }[] = [
