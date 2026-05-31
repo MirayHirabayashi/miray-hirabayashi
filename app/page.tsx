@@ -54,7 +54,7 @@ export default function Home() {
                 View Projects
                 <ArrowRightIcon width={18} height={18} />
               </ButtonLink>
-              // TODO: Add Apple App Store link when app is published
+               {/* TODO: Add Apple App Store link when app is published */}
               {/* <ButtonAnchor
                 href={site.appUrl}
                 target="_blank"
