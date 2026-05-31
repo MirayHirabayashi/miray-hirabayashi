@@ -49,8 +49,7 @@ export const projects: Project[] = [
     description:
       "A scalable event discovery platform built with Next.js and TypeScript, featuring serverless API routes that integrate real-time data from the Ticketmaster Discovery API. Prototyped UI/UX with a focus on performance and modular component architecture, then launched on Vercel with integrated analytics.",
     tech: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
-    github: "https://github.com/MirayHirabayashi",
-    demo: "https://github.com/MirayHirabayashi",
+    demo: "https://www.iowaafterclass.com/",
     featured: true,
   },
   {
@@ -60,7 +59,7 @@ export const projects: Project[] = [
     description:
       "An employee and project management app for small businesses to track staff, assign tasks, and manage workflows. Built the Android UI and application logic in Java with Gradle, integrating REST APIs, WebSockets, and full CRUD functionality. Set up CI/CD pipelines and unit testing in a collaborative Git/GitLab environment.",
     tech: ["Java", "Android Studio", "Gradle", "REST APIs", "WebSockets"],
-    github: "https://github.com/MirayHirabayashi",
+    github: "https://github.com/achen2304/WorkSync",
     featured: true,
   },
   {
@@ -70,7 +69,7 @@ export const projects: Project[] = [
     description:
       "A machine learning model that predicts the daily direction of the S&P 500 index. Engineered custom financial indicators and used scikit-learn, pandas, and matplotlib for model training, data processing, and visualization. Achieved a precision score of 0.57, outperforming the baseline model.",
     tech: ["Python", "scikit-learn", "pandas", "matplotlib"],
-    github: "https://github.com/MirayHirabayashi",
+    github: "https://github.com/MirayHirabayashi/stock-price-predictor",
   },
 ];
 
