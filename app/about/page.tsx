@@ -22,7 +22,6 @@ const interests = [
   "Accessibility",
   "Developer tooling",
   "Open source",
-  "Mentoring & teaching",
 ];
 
 export default function AboutPage() {
@@ -36,14 +35,14 @@ export default function AboutPage() {
             <p>
               I&apos;m a software engineering student at{" "}
               <span className="text-text">Iowa State University</span> with a
-              minor in Cybersecurity, graduating May 2027. I love turning rough
-              ideas into real, working software — sweating the details in both
-              the interface and the architecture underneath it.
+              minor in Cybersecurity, graduating May 2027. I enjoy turning ideas into polished, 
+              production-ready software, 
+              with a strong focus on both user experience and the architecture that supports it.
             </p>
             <p>
               My work spans full-stack web development, mobile apps, and
               Python-based data tools. My cybersecurity minor shapes how I think
-              about the systems I build — from API design to data handling.
+              about the systems I build, from API design to data handling.
               Whether it&apos;s a responsive React frontend, a mobile app,
               or an ML pipeline, I care about building software that is correct,
               maintainable, and genuinely useful.
