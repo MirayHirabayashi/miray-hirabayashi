@@ -19,4 +19,4 @@ A dark, minimalist personal portfolio for **Miray Hirabayashi**, a senior softwa
 - [Next.js 16](https://nextjs.org) (App Router) + [React 19](https://react.dev)
 - [Tailwind CSS v4](https://tailwindcss.com)
 - TypeScript
-- [Inter](https://fonts.google.com/specimen/Inter) via `next/font`
+- Python (PDF operations)
