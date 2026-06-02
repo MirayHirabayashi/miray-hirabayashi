@@ -32,10 +32,7 @@ export default function PrivacyPage() {
           </h2>
           <p className="mt-3 leading-relaxed">
             The site does not require you to create an account or provide
-            personal details to browse. If you use the contact form, it opens
-            your own email client with the message you typed — your name, email,
-            and message are sent directly to me by email and are not stored on
-            this site.
+            personal details to browse.
           </p>
         </section>
 
