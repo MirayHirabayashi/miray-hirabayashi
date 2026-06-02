@@ -140,7 +140,7 @@ export const faqs = [
   },
   {
     q: "What's your strongest area?",
-    a: "Full-stack web development with React and Next.js, along with solid Android and Python/ML experience.",
+    a: "Full-stack web development with React and Next.js, along with solid Mobile Development and Python/ML experience.",
   },
   {
     q: "Are you open to relocation?",
