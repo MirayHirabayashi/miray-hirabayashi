@@ -99,7 +99,7 @@ export const skills: { group: string; items: string[] }[] = [
   },
   {
     group: "Environments",
-    items: ["Linux (Ubuntu, Kali)", "macOS", "Windows", "CI/CD", "Agile"],
+    items: ["Linux (Ubuntu, Kali)", "macOS", "Windows",],
   },
 ];
 

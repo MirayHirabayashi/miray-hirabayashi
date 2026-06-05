@@ -35,7 +35,7 @@ export default function AboutPage() {
             <p>
               I&apos;m a software engineering student at{" "}
               <span className="text-text">Iowa State University</span> with a
-              minor in Cybersecurity, graduating May 2027. I enjoy turning ideas into polished, 
+              minor in Cybersecurity, graduating in May 2027. I enjoy turning ideas into polished, 
               production-ready software, 
               with a strong focus on both user experience and the architecture that supports it.
             </p>
