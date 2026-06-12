@@ -2,7 +2,7 @@
 
 A dark, minimalist personal portfolio for **Miray Hirabayashi**, a senior software engineering student at Iowa State University. Built to showcase projects, skills, and experience with a clean, professional feel.
 
-🔗 **Live site:** _coming soon_
+🔗 **Live site:** [miray.dev](https://miray.dev)
 
 ## Features
 
