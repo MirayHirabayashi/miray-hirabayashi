@@ -1,14 +1,30 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Instrument_Serif, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Analytics } from "@vercel/analytics/next"
 
+/* Three families, three roles: serif for display headings, sans for body copy,
+   mono for labels and metadata. See the type notes in globals.css. */
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+  display: "swap",
+});
+
+// Instrument Serif ships a single weight — it has to be declared explicitly.
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-instrument-serif",
+  display: "swap",
+});
+
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-geist-mono",
   display: "swap",
 });
 
@@ -47,7 +63,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b0d10",
+  themeColor: "#0c0c0b",
   width: "device-width",
   initialScale: 1,
 };
@@ -58,13 +74,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} h-full`}>
-      <body className="min-h-full flex flex-col font-sans">
+    <html
+      lang="en"
+      className={`${inter.variable} ${instrumentSerif.variable} ${geistMono.variable} h-full`}
+    >
+      <body className="min-h-full flex flex-col font-sans antialiased">
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
+        <Analytics />
       </body>
-      <Analytics/>
     </html>
   );
 }

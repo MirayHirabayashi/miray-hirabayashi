@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { site } from "@/lib/site";
 import { Container } from "@/components/ui";
-import { GitHubIcon, LinkedInIcon, MailIcon } from "@/components/icons";
 
 const footerNav = [
   { href: "/projects", label: "Projects" },
@@ -12,61 +11,65 @@ const footerNav = [
   { href: "/support", label: "Support" },
 ];
 
+const socials = [
+  { href: site.socials.github, label: "GitHub" },
+  { href: site.socials.linkedin, label: "LinkedIn" },
+  { href: `mailto:${site.email}`, label: "Email" },
+];
+
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-surface">
-      <Container className="py-12">
-        <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
-          <div className="max-w-sm">
-            <p className="text-sm font-semibold text-text">{site.name}</p>
-            <p className="mt-2 text-sm leading-relaxed text-muted">
-              {site.shortBio}
+    <footer className="border-t border-rule">
+      <Container>
+        <div className="grid grid-cols-1 gap-y-10 py-16 lg:grid-cols-12 lg:gap-x-12">
+          <div className="lg:col-span-3">
+            {/* The availability badge from the old hero lives here now — it's
+                status, not a headline. */}
+            <p className="label flex items-center gap-2 text-faint">
+              <span className="h-1.5 w-1.5 flex-none rounded-full bg-accent" />
+              Available 2027
             </p>
           </div>
 
-          <nav className="grid grid-cols-2 gap-x-12 gap-y-2 sm:grid-cols-3">
-            {footerNav.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm text-muted transition-colors hover:text-text"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
+          <div className="lg:col-span-8 lg:col-start-5">
+            <p className="display text-2xl text-text sm:text-3xl">
+              {site.name}
+            </p>
+            <p className="mt-3 max-w-md text-sm leading-relaxed text-muted">
+              {site.shortBio}
+            </p>
+
+            <div className="mt-10 grid grid-cols-2 gap-x-8 gap-y-4 sm:grid-cols-3">
+              {footerNav.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="link-underline w-fit font-mono text-xs text-faint transition-colors hover:text-text"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
 
-        <div className="mt-10 flex flex-col-reverse items-start gap-6 border-t border-border pt-8 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-muted">
-            © {new Date().getFullYear()} {site.name}. All rights reserved.
+        <div className="flex flex-col-reverse items-start gap-6 border-t border-rule py-8 sm:flex-row sm:items-center sm:justify-between">
+          <p className="tnum font-mono text-xs text-faint">
+            © {new Date().getFullYear()} {site.name}
           </p>
-          <div className="flex items-center gap-3">
-            <a
-              href={site.socials.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitHub"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted transition-colors hover:border-accent/60 hover:text-text"
-            >
-              <GitHubIcon />
-            </a>
-            <a
-              href={site.socials.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted transition-colors hover:border-accent/60 hover:text-text"
-            >
-              <LinkedInIcon />
-            </a>
-            <a
-              href={`mailto:${site.email}`}
-              aria-label="Email"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted transition-colors hover:border-accent/60 hover:text-text"
-            >
-              <MailIcon />
-            </a>
+          <div className="flex items-center gap-6">
+            {socials.map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                {...(s.href.startsWith("mailto:")
+                  ? {}
+                  : { target: "_blank", rel: "noopener noreferrer" })}
+                className="link-underline font-mono text-xs text-faint transition-colors hover:text-text"
+              >
+                {s.label}
+              </a>
+            ))}
           </div>
         </div>
       </Container>

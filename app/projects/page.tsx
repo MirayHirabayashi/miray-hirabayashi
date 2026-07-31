@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { projects } from "@/lib/site";
-import { Section, SectionHeading } from "@/components/ui";
-import { ProjectCard } from "@/components/ProjectCard";
+import { EditorialSection, Display, Lede } from "@/components/ui";
+import { ProjectRow } from "@/components/ProjectRow";
 
 export const metadata: Metadata = {
   title: "Projects",
@@ -11,18 +11,22 @@ export const metadata: Metadata = {
 
 export default function ProjectsPage() {
   return (
-    <Section>
-      <SectionHeading
-        eyebrow="Portfolio"
-        title="Projects"
-        description="From native iOS apps to full-stack web tools — each project below lists its stack with links to the source code or a live demo where available."
-      />
+    <>
+      <EditorialSection label="Portfolio" divider={false}>
+        <Display as="h1">Projects</Display>
+        <Lede className="mt-6">
+          From native mobile apps to full-stack web tools — each entry lists its
+          stack, with links to the source or a live demo where available.
+        </Lede>
+      </EditorialSection>
 
-      <div className="mt-14 grid gap-6 md:grid-cols-2">
-        {projects.map((project) => (
-          <ProjectCard key={project.slug} project={project} />
-        ))}
-      </div>
-    </Section>
+      <EditorialSection label="Index">
+        <ol className="border-t border-rule">
+          {projects.map((project, i) => (
+            <ProjectRow key={project.slug} project={project} index={i + 1} />
+          ))}
+        </ol>
+      </EditorialSection>
+    </>
   );
 }

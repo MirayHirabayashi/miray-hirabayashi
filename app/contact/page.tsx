@@ -1,12 +1,7 @@
 import type { Metadata } from "next";
 import { site } from "@/lib/site";
-import { Section, SectionHeading } from "@/components/ui";
-import {
-  MailIcon,
-  MapPinIcon,
-  GitHubIcon,
-  LinkedInIcon,
-} from "@/components/icons";
+import { EditorialSection, Display, Lede } from "@/components/ui";
+import { ArrowUpRightIcon } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -15,64 +10,69 @@ export const metadata: Metadata = {
 };
 
 const channels = [
-  {
-    label: "Email",
-    value: site.email,
-    href: `mailto:${site.email}`,
-    Icon: MailIcon,
-  },
+  { label: "Email", value: site.email, href: `mailto:${site.email}` },
   {
     label: "LinkedIn",
-    value: "Connect on LinkedIn",
+    value: "in/miray-hirabayashi",
     href: site.socials.linkedin,
-    Icon: LinkedInIcon,
     external: true,
   },
   {
     label: "GitHub",
-    value: "See my code",
+    value: "MirayHirabayashi",
     href: site.socials.github,
-    Icon: GitHubIcon,
     external: true,
   },
 ];
 
 export default function ContactPage() {
   return (
-    <Section>
-      <SectionHeading
-        eyebrow="Contact"
-        title="Let's talk"
-        description="Whether you have a role, a project, or just want to say hello — my inbox is always open."
-      />
+    <>
+      <EditorialSection label="Contact" divider={false}>
+        <Display as="h1">Let&apos;s talk.</Display>
+        <Lede className="mt-6">
+          Whether you have a role, a project, or just want to say hello — my
+          inbox is always open.
+        </Lede>
+      </EditorialSection>
 
-      <div className="mt-14 max-w-lg space-y-4">
-        {channels.map(({ label, value, href, Icon, external }) => (
-          <a
-            key={label}
-            href={href}
-            {...(external
-              ? { target: "_blank", rel: "noopener noreferrer" }
-              : {})}
-            className="flex items-center gap-4 rounded-2xl border border-border bg-surface p-5 transition-colors hover:border-accent/50"
-          >
-            <span className="inline-flex h-11 w-11 flex-none items-center justify-center rounded-xl border border-border bg-bg text-accent">
-              <Icon width={20} height={20} />
+      <EditorialSection label="Channels">
+        {/* Rows on hairlines rather than bordered cards: the address itself is
+            the content, so it gets the largest type in the row. */}
+        <ul className="border-t border-rule">
+          {channels.map(({ label, value, href, external }) => (
+            <li key={label}>
+              <a
+                href={href}
+                {...(external
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
+                className="group grid grid-cols-1 items-baseline gap-2 border-b border-rule py-7 sm:grid-cols-12 sm:gap-6"
+              >
+                <span className="label pt-1 text-faint sm:col-span-4">
+                  {label}
+                </span>
+                <span className="flex items-center gap-2 sm:col-span-8">
+                  <span className="display text-xl text-text transition-colors group-hover:text-accent sm:text-2xl">
+                    {value}
+                  </span>
+                  <ArrowUpRightIcon
+                    width={16}
+                    height={16}
+                    className="flex-none text-faint transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
+                  />
+                </span>
+              </a>
+            </li>
+          ))}
+          <li className="grid grid-cols-1 gap-2 border-b border-rule py-7 sm:grid-cols-12 sm:gap-6">
+            <span className="label pt-1 text-faint sm:col-span-4">Based in</span>
+            <span className="text-[0.9375rem] text-muted sm:col-span-8">
+              {site.location}
             </span>
-            <span>
-              <span className="block text-sm font-medium text-text">
-                {label}
-              </span>
-              <span className="block text-sm text-muted">{value}</span>
-            </span>
-          </a>
-        ))}
-
-        <div className="flex items-center gap-3 px-1 pt-2 text-sm text-muted">
-          <MapPinIcon width={18} height={18} className="text-accent" />
-          {site.location}
-        </div>
-      </div>
-    </Section>
+          </li>
+        </ul>
+      </EditorialSection>
+    </>
   );
 }

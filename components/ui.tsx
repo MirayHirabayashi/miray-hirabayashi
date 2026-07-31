@@ -10,76 +10,142 @@ export function Container({
   children: ReactNode;
 }) {
   return (
-    <div className={`mx-auto w-full max-w-6xl px-6 sm:px-8 ${className}`}>
+    <div className={`mx-auto w-full max-w-6xl px-6 sm:px-8 lg:px-12 ${className}`}>
       {children}
     </div>
   );
 }
 
-/** Vertical rhythm wrapper for page sections. */
-export function Section({
-  className = "",
+/**
+ * The layout primitive the whole site is built on.
+ *
+ * A 12-column grid with a narrow label column pinned to the left and content
+ * offset into columns 5–12. The label sticks while its section scrolls, so
+ * there is always a fixed reference point telling you where you are. Below
+ * `lg` there isn't room for two columns, so it collapses to label-over-content.
+ */
+export function EditorialSection({
+  label,
   children,
   id,
+  className = "",
+  divider = true,
 }: {
-  className?: string;
+  label?: string;
   children: ReactNode;
   id?: string;
+  className?: string;
+  /** Hairline rule above the section. Off for the first section on a page. */
+  divider?: boolean;
 }) {
   return (
-    <section id={id} className={`py-16 sm:py-24 ${className}`}>
-      <Container>{children}</Container>
+    <section
+      id={id}
+      className={`${divider ? "border-t border-rule" : ""} ${className}`}
+    >
+      <Container>
+        <div className="grid grid-cols-1 gap-y-8 py-16 sm:py-24 lg:grid-cols-12 lg:gap-x-12">
+          {label ? (
+            <div className="lg:col-span-3">
+              <p className="label sticky top-28 text-faint">{label}</p>
+            </div>
+          ) : null}
+          {/* Content keeps the same offset with or without a label, so text
+              edges line up down the whole page. */}
+          <div className="lg:col-span-8 lg:col-start-5">{children}</div>
+        </div>
+      </Container>
     </section>
   );
 }
 
-/** Small accent label that sits above headings. */
-export function Eyebrow({ children }: { children: ReactNode }) {
-  return (
-    <span className="text-sm font-medium uppercase tracking-[0.2em] text-accent">
-      {children}
-    </span>
-  );
-}
-
-export function SectionHeading({
-  eyebrow,
-  title,
-  description,
+/** Mono, letter-spaced label. The site's only uppercase text. */
+export function Label({
+  children,
   className = "",
 }: {
-  eyebrow?: string;
-  title: ReactNode;
-  description?: ReactNode;
+  children: ReactNode;
+  className?: string;
+}) {
+  return <p className={`label text-faint ${className}`}>{children}</p>;
+}
+
+/** Serif display heading. `xl` is reserved for the homepage hero. */
+export function Display({
+  children,
+  as: Tag = "h2",
+  size = "lg",
+  className = "",
+}: {
+  children: ReactNode;
+  as?: "h1" | "h2" | "h3";
+  size?: "lg" | "xl";
   className?: string;
 }) {
   return (
-    <div className={`max-w-2xl ${className}`}>
-      {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
-      <h2 className="mt-3 text-3xl font-semibold tracking-tight text-text sm:text-4xl">
-        {title}
-      </h2>
-      {description ? (
-        <p className="mt-4 text-lg leading-relaxed text-muted">{description}</p>
-      ) : null}
-    </div>
+    <Tag
+      className={`display display-${size} text-text text-balance ${className}`}
+    >
+      {children}
+    </Tag>
   );
 }
 
-type ButtonVariant = "primary" | "secondary" | "ghost";
+/** Oversized intro paragraph that sits directly under a Display heading. */
+export function Lede({
+  children,
+  className = "",
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <p
+      className={`max-w-2xl text-lg leading-relaxed text-muted sm:text-xl ${className}`}
+    >
+      {children}
+    </p>
+  );
+}
+
+/**
+ * Text link with an underline that grows from the left. This is the default
+ * link treatment everywhere — hierarchy comes from the motion, not colour, so
+ * the accent stays scarce.
+ */
+export function TextLink({
+  className = "",
+  ...props
+}: ComponentProps<typeof Link>) {
+  return (
+    <Link
+      className={`link-underline text-text transition-colors hover:text-text ${className}`}
+      {...props}
+    />
+  );
+}
+
+/** External / download counterpart to TextLink. */
+export function TextAnchor({
+  className = "",
+  ...props
+}: ComponentProps<"a">) {
+  return <a className={`link-underline text-text ${className}`} {...props} />;
+}
+
+type ButtonVariant = "primary" | "secondary";
 
 const buttonStyles: Record<ButtonVariant, string> = {
-  primary:
-    "bg-accent text-bg hover:bg-accent-hover shadow-[0_0_0_1px_rgba(79,140,255,0.4)]",
-  secondary:
-    "border border-border bg-surface text-text hover:border-accent/60 hover:bg-surface-2",
-  ghost: "text-muted hover:text-text",
+  primary: "bg-accent text-bg hover:bg-accent-hover",
+  secondary: "border border-rule text-text hover:border-muted",
 };
 
+/* Square, not pill — the rounded-full button was part of the old template
+   language. Mono label type ties them to the section labels. */
 const buttonBase =
-  "inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg";
+  "label inline-flex items-center justify-center gap-2.5 px-6 py-3.5 transition-colors duration-200";
 
-/** Internal link styled as a button. */
+/** Internal link styled as a button. Used at most once per page. */
 export function ButtonLink({
   variant = "primary",
   className = "",
@@ -107,11 +173,38 @@ export function ButtonAnchor({
   );
 }
 
-/** Pill used for tech-stack tags and skill chips. */
-export function Tag({ children }: { children: ReactNode }) {
+/**
+ * A label/value row on a hairline rule — the replacement for the old grid of
+ * bordered skill cards. Reads as a reference table rather than as chrome.
+ */
+export function DefinitionRow({
+  term,
+  children,
+}: {
+  term: string;
+  children: ReactNode;
+}) {
   return (
-    <span className="rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium text-muted">
-      {children}
+    <div className="grid grid-cols-1 gap-2 border-b border-rule py-5 sm:grid-cols-12 sm:gap-6">
+      <dt className="label pt-1 text-faint sm:col-span-4">{term}</dt>
+      <dd className="text-[0.9375rem] leading-relaxed text-muted sm:col-span-8">
+        {children}
+      </dd>
+    </div>
+  );
+}
+
+/** Wrapper that gives DefinitionRow its top rule. */
+export function DefinitionList({ children }: { children: ReactNode }) {
+  return <dl className="border-t border-rule">{children}</dl>;
+}
+
+/** Tech-stack metadata as `React · TypeScript · Tailwind` — mono text on a
+ *  separator, not a row of pills. */
+export function TagRow({ items }: { items: readonly string[] }) {
+  return (
+    <span className="font-mono text-xs tracking-wide text-faint">
+      {items.join(" · ")}
     </span>
   );
 }

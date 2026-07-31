@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import { site, faqs } from "@/lib/site";
-import { Section, SectionHeading, ButtonAnchor } from "@/components/ui";
+import {
+  EditorialSection,
+  Display,
+  Lede,
+  ButtonAnchor,
+} from "@/components/ui";
 import { MailIcon } from "@/components/icons";
 
 export const metadata: Metadata = {
@@ -11,43 +16,52 @@ export const metadata: Metadata = {
 
 export default function SupportPage() {
   return (
-    <Section>
-      <SectionHeading
-        eyebrow="Support"
-        title="Support & FAQ"
-        description="Answers to common questions. Can't find what you need? Reach out anytime."
-      />
+    <>
+      <EditorialSection label="Support" divider={false}>
+        <Display as="h1">Support &amp; FAQ</Display>
+        <Lede className="mt-6">
+          Answers to common questions. Can&apos;t find what you need? Reach out
+          anytime.
+        </Lede>
+      </EditorialSection>
 
-      <div className="mt-12 max-w-3xl space-y-4">
-        {faqs.map((faq) => (
-          <details
-            key={faq.q}
-            className="group rounded-2xl border border-border bg-surface p-6 [&_summary::-webkit-details-marker]:hidden"
-          >
-            <summary className="flex cursor-pointer items-center justify-between gap-4 text-base font-medium text-text">
-              {faq.q}
-              <span className="text-accent transition-transform duration-200 group-open:rotate-45">
-                +
-              </span>
-            </summary>
-            <p className="mt-4 text-sm leading-relaxed text-muted">{faq.a}</p>
-          </details>
-        ))}
-      </div>
-
-      <div className="mt-12 flex flex-col gap-4 rounded-2xl border border-border bg-surface p-8 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h2 className="text-lg font-semibold text-text">Still need help?</h2>
-          <p className="mt-1 text-sm text-muted">
-            For app support or anything else, send me an email and I&apos;ll get
-            back to you.
-          </p>
+      <EditorialSection label="Questions">
+        <div className="border-t border-rule">
+          {faqs.map((faq) => (
+            <details
+              key={faq.q}
+              className="group border-b border-rule py-6 [&_summary::-webkit-details-marker]:hidden"
+            >
+              <summary className="flex cursor-pointer items-baseline justify-between gap-6 text-base text-text transition-colors hover:text-accent">
+                {faq.q}
+                <span
+                  aria-hidden
+                  className="flex-none font-mono text-sm text-faint transition-transform duration-300 group-open:rotate-45"
+                >
+                  +
+                </span>
+              </summary>
+              <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted">
+                {faq.a}
+              </p>
+            </details>
+          ))}
         </div>
-        <ButtonAnchor href={`mailto:${site.email}`} className="flex-none">
-          <MailIcon width={18} height={18} />
-          Email support
-        </ButtonAnchor>
-      </div>
-    </Section>
+      </EditorialSection>
+
+      <EditorialSection label="Still stuck">
+        <Display>Send me an email.</Display>
+        <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
+          For app support or anything else, get in touch and I&apos;ll get back
+          to you.
+        </p>
+        <div className="mt-10">
+          <ButtonAnchor href={`mailto:${site.email}`}>
+            <MailIcon width={16} height={16} />
+            Email support
+          </ButtonAnchor>
+        </div>
+      </EditorialSection>
+    </>
   );
 }

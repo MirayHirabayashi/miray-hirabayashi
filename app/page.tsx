@@ -1,163 +1,102 @@
-import Link from "next/link";
+import type { CSSProperties } from "react";
 import { site, projects, skills } from "@/lib/site";
 import {
   Container,
-  Section,
-  SectionHeading,
+  EditorialSection,
+  Display,
+  Lede,
+  Label,
+  TextLink,
   ButtonLink,
   ButtonAnchor,
-  Tag,
+  DefinitionList,
+  DefinitionRow,
 } from "@/components/ui";
-import { ProjectCard } from "@/components/ProjectCard";
-import {
-  ArrowRightIcon,
-  DownloadIcon,
-  MailIcon,
-  AppleIcon,
-} from "@/components/icons";
+import { ProjectRow } from "@/components/ProjectRow";
+import { ArrowUpRightIcon, DownloadIcon } from "@/components/icons";
+
+/** Staggered entrance, used once on the site — the hero, on first paint. */
+const stagger = (ms: number) => ({ "--stagger": `${ms}ms` }) as CSSProperties;
 
 export default function Home() {
-  const featured = projects.filter((p) => p.featured).slice(0, 2);
+  const featured = projects.filter((p) => p.featured);
 
   return (
     <>
       {/* ---------------------------------------------------------------- Hero */}
-      <section className="relative overflow-hidden py-20 sm:py-32">
-        {/* Ambient background glow */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 -z-10"
-        >
-          <div className="absolute left-1/2 top-[-10%] h-[480px] w-[680px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(79,140,255,0.18),transparent)] blur-2xl" />
-          <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent,rgba(11,13,16,0.6))]" />
-        </div>
+      <section>
+        <Container>
+          <div className="grid grid-cols-1 gap-y-8 py-24 sm:py-36 lg:grid-cols-12 lg:gap-x-12">
+            <div className="lg:col-span-3">
+              <Label className="animate-fade-up">{site.location}</Label>
+            </div>
 
-        <Container className="animate-fade-up">
-          <div className="max-w-3xl">
-            <p className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-1.5 text-sm text-muted">
-              <span className="h-2 w-2 rounded-full bg-accent" />
-              Available for 2027 new-grad roles · Full-Stack · Mobile
-            </p>
+            <div className="lg:col-span-8 lg:col-start-5">
+              <Display as="h1" size="xl" className="animate-fade-up">
+                {site.name}
+              </Display>
 
-            <h1 className="mt-6 text-4xl font-semibold leading-[1.1] tracking-tight text-text sm:text-6xl">
-              {site.name}
-            </h1>
-            <p className="mt-4 text-lg font-medium text-accent sm:text-xl">
-              {site.title}
-            </p>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">
-              {site.tagline}
-            </p>
+              <div className="mt-8 animate-fade-up" style={stagger(120)}>
+                <Lede>{site.tagline}</Lede>
+              </div>
 
-            <div className="mt-9 flex flex-wrap gap-3">
-              <ButtonLink href="/projects">
-                View Projects
-                <ArrowRightIcon width={18} height={18} />
-              </ButtonLink>
-               {/* TODO: Add Apple App Store link when app is published */}
-              {/* <ButtonAnchor
-                href={site.appUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                variant="secondary"
+              <div
+                className="mt-10 flex items-center gap-2 animate-fade-up"
+                style={stagger(200)}
               >
-                <AppleIcon width={18} height={18} />
-                Download App
-              </ButtonAnchor> */}
-              <ButtonLink href="/contact" variant="secondary">
-                <MailIcon width={18} height={18} />
-                Contact
-              </ButtonLink>
+                <TextLink href="/projects" className="font-mono text-sm">
+                  Selected work
+                </TextLink>
+                <ArrowUpRightIcon width={16} height={16} className="text-faint" />
+              </div>
             </div>
           </div>
         </Container>
       </section>
 
       {/* ----------------------------------------------------- Featured work */}
-      <Section className="border-t border-border">
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <SectionHeading
-            eyebrow="Selected work"
-            title="Featured projects"
-            description="A few things I've designed and built recently, from native iOS apps to full-stack web tools."
-          />
-          <Link
-            href="/projects"
-            className="inline-flex items-center gap-2 text-sm font-medium text-accent transition-colors hover:text-accent-hover"
-          >
+      <EditorialSection label="Selected work">
+        <ol className="border-t border-rule">
+          {featured.map((project, i) => (
+            <ProjectRow key={project.slug} project={project} index={i + 1} />
+          ))}
+        </ol>
+
+        <div className="mt-8 flex items-center gap-2">
+          <TextLink href="/projects" className="font-mono text-sm text-faint">
             All projects
-            <ArrowRightIcon width={18} height={18} />
-          </Link>
+          </TextLink>
+          <ArrowUpRightIcon width={16} height={16} className="text-faint" />
         </div>
+      </EditorialSection>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-2">
-          {featured.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
-          ))}
-        </div>
-      </Section>
-
-      {/* ------------------------------------------------------------ Skills */}
-      <Section className="border-t border-border">
-        <SectionHeading
-          eyebrow="Toolkit"
-          title="What I work with"
-          description="A pragmatic stack focused on shipping reliable, well-tested software."
-        />
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {/* ------------------------------------------------------------ Toolkit */}
+      <EditorialSection label="Toolkit">
+        <DefinitionList>
           {skills.map((group) => (
-            <div
-              key={group.group}
-              className="rounded-2xl border border-border bg-surface p-6"
-            >
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-accent">
-                {group.group}
-              </h3>
-              <ul className="mt-4 space-y-2">
-                {group.items.map((item) => (
-                  <li key={item} className="text-sm text-muted">
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <DefinitionRow key={group.group} term={group.group}>
+              {group.items.join(", ")}
+            </DefinitionRow>
           ))}
-        </div>
-      </Section>
+        </DefinitionList>
+      </EditorialSection>
 
       {/* --------------------------------------------------------------- CTA */}
-      <Section className="border-t border-border">
-        <div className="relative overflow-hidden rounded-3xl border border-border bg-surface p-10 sm:p-16">
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_80%_0%,rgba(79,140,255,0.18),transparent_55%)]"
-          />
-          <div className="relative max-w-2xl">
-            <h2 className="text-3xl font-semibold tracking-tight text-text sm:text-4xl">
-              Let&apos;s build something great.
-            </h2>
-            <p className="mt-4 text-lg text-muted">
-              I&apos;m currently looking for full-stack, mobile, or any tech
-              engineering opportunities, graduating Spring 2027. Have a role or
-              project in mind? I&apos;d love to hear about it.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <ButtonLink href="/contact">
-                Get in touch
-                <ArrowRightIcon width={18} height={18} />
-              </ButtonLink>
-              <ButtonAnchor
-                href={site.resumePath}
-                download
-                variant="secondary"
-              >
-                <DownloadIcon width={18} height={18} />
-                Download résumé
-              </ButtonAnchor>
-            </div>
-          </div>
+      <EditorialSection label="Contact">
+        <Display>Let&apos;s build something great.</Display>
+        <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
+          I&apos;m looking for full-stack, mobile, or any tech engineering
+          opportunities, graduating Spring 2027. Have a role or project in mind?
+          I&apos;d love to hear about it.
+        </p>
+        <div className="mt-10 flex flex-wrap gap-4">
+          <ButtonLink href="/contact">Get in touch</ButtonLink>
+          <ButtonAnchor href={site.resumePath} download variant="secondary">
+            <DownloadIcon width={16} height={16} />
+            Résumé
+          </ButtonAnchor>
         </div>
-      </Section>
+      </EditorialSection>
     </>
   );
 }

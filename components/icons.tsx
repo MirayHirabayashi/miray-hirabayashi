@@ -21,6 +21,14 @@ export function ArrowRightIcon(props: IconProps) {
   );
 }
 
+export function ArrowUpRightIcon(props: IconProps) {
+  return (
+    <svg {...base} aria-hidden {...props}>
+      <path d="M7 17 17 7M8 7h9v9" />
+    </svg>
+  );
+}
+
 export function DownloadIcon(props: IconProps) {
   return (
     <svg {...base} aria-hidden {...props}>

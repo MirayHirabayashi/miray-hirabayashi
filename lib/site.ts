@@ -35,6 +35,9 @@ export type Project = {
   description: string;
   summary: string;
   tech: string[];
+  /** Shown in the right-hand column of the project index. Optional — the row
+   *  reads fine without it, so fill these in when you're sure of the dates. */
+  year?: string;
   image?: string;
   github?: string;
   demo?: string;

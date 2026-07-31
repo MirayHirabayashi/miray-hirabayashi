@@ -15,44 +15,39 @@ export function Navbar() {
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-bg/80 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-rule bg-bg/85 backdrop-blur-md">
       <Container>
-        <nav className="flex h-16 items-center justify-between">
+        <nav className="flex h-20 items-center justify-between">
           <Link
             href="/"
-            className="text-sm font-semibold tracking-tight text-text transition-colors hover:text-accent"
+            className="display text-xl text-text transition-colors hover:text-accent"
           >
             {site.name}
           </Link>
 
-          {/* Desktop links */}
-          <div className="hidden items-center gap-1 md:flex">
+          {/* Desktop links. Active state is an underline rather than a colour
+              change — colour is reserved for the single accent per viewport. */}
+          <div className="hidden items-center gap-8 md:flex">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+                className={`label pb-1 transition-colors ${
                   isActive(link.href)
-                    ? "text-text"
-                    : "text-muted hover:text-text"
+                    ? "border-b border-text text-text"
+                    : "border-b border-transparent text-faint hover:text-text"
                 }`}
               >
                 {link.label}
               </Link>
             ))}
-            <Link
-              href="/contact"
-              className="ml-2 rounded-full bg-accent px-4 py-2 text-sm font-medium text-bg transition-colors hover:bg-accent-hover"
-            >
-              Get in touch
-            </Link>
           </div>
 
           {/* Mobile toggle */}
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full text-text transition-colors hover:bg-surface md:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center text-text transition-colors hover:text-accent md:hidden"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
           >
@@ -63,18 +58,16 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {open ? (
-        <div className="border-t border-border bg-bg md:hidden">
-          <Container className="py-4">
-            <div className="flex flex-col gap-1">
+        <div className="border-t border-rule bg-bg md:hidden">
+          <Container className="py-2">
+            <div className="flex flex-col">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className={`rounded-lg px-3 py-3 text-base font-medium transition-colors ${
-                    isActive(link.href)
-                      ? "bg-surface text-text"
-                      : "text-muted hover:bg-surface hover:text-text"
+                  className={`label border-b border-rule py-5 last:border-b-0 transition-colors ${
+                    isActive(link.href) ? "text-text" : "text-faint"
                   }`}
                 >
                   {link.label}
