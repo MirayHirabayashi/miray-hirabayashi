@@ -44,7 +44,7 @@ function HistoryRow({
 export default function ResumePage() {
   return (
     <>
-      <EditorialSection label="Resume" divider={false}>
+      <EditorialSection label="Resume" divider={false} backdrop>
         <Display as="h1">Experience &amp; education</Display>
         <Lede className="mt-6">
           A snapshot of my background. Prefer the original? Download the full

@@ -3,28 +3,34 @@
 /* ---------------------------------------------------------------------------
    Design tokens
 
-   Editorial dark theme: warm neutrals instead of blue-grey slate, a single
-   ochre accent, and hairline rules in place of card borders. Colour carries
+   Editorial dark theme in a cool register: blue-tinted neutrals, a single
+   azure accent, and hairline rules in place of card borders. Colour carries
    almost no hierarchy here — weight, size and the typeface do that work — so
-   the accent is reserved for at most one element per viewport.
+   the accent is reserved for at most one element per viewport. The blue tint
+   in the neutrals is what does the atmospheric work; the accent stays scarce.
 --------------------------------------------------------------------------- */
 @theme {
   /* Surfaces. `surface` is deliberately close to `bg`: it exists for the rare
      inset panel (PDF viewer, image wells), not for general card chrome. */
-  --color-bg: #0c0c0b;
-  --color-surface: #131312;
-  --color-rule: #24241f;
+  --color-bg: #080a0f;
+  --color-surface: #10141c;
+  --color-rule: #1c2331;
 
-  /* Ink. Four steps, each with a defined job:
+  /* Ink. Four steps, each with a defined job. Ratios are matched to the
+     previous warm palette so the hierarchy reads identically:
      text  — headings and primary copy
      muted — body copy and descriptions        (5.7:1 on bg)
-     faint — metadata, indices, label column   (4.5:1 on bg)
-     accent— one call-to-action per viewport   (8.1:1 on bg) */
-  --color-text: #ededea;
-  --color-muted: #8b8b83;
-  --color-faint: #7a7a72;
-  --color-accent: #c8a15a;
-  --color-accent-hover: #ddb771;
+     faint — metadata, indices, label column   (4.6:1 on bg)
+     accent— one call-to-action per viewport   (7.9:1 on bg) */
+  --color-text: #e6ecf5;
+  --color-muted: #7e8a9e;
+  --color-faint: #6f7b8f;
+  --color-accent: #5aa9f0;
+  --color-accent-hover: #7cbcf7;
+
+  /* Cyan sibling of the accent. Not a second accent — it exists only for the
+     hero's ambient wash, where two hues read as depth rather than decoration. */
+  --color-glow: #38bdf8;
 
   /* Type. Three families, three roles, no overlap:
      serif — display headings only
@@ -102,6 +108,74 @@ body {
 }
 
 /* ---------------------------------------------------------------------------
+   Atmosphere
+
+   Two decorative layers, used only behind the hero. They are the reason the
+   palette reads as technical rather than merely dark: a blueprint grid for
+   structure and a soft azure wash for depth. Both fade out well before the
+   first section rule, so no content ever sits on top of a busy field.
+--------------------------------------------------------------------------- */
+
+/* Blueprint grid. 1px lines on a 76px module, masked to fade downward and
+   toward the edges so it never reaches a hard cut-off.
+
+   The height is fixed rather than `inset: 0` on purpose: a percentage mask on
+   a full-height section would fade over a different distance on a short page
+   header than on the tall home hero, and the grid would crowd the heading on
+   the short one. A constant 20rem makes the fade identical everywhere. */
+.grid-backdrop::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 20rem;
+  z-index: -1;
+  background-image:
+    repeating-linear-gradient(
+      to right,
+      color-mix(in srgb, var(--color-accent) 6%, transparent) 0 1px,
+      transparent 1px 76px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--color-accent) 6%, transparent) 0 1px,
+      transparent 1px 76px
+    );
+  mask-image:
+    linear-gradient(to bottom, #000 0%, transparent 90%),
+    radial-gradient(115% 100% at 50% 0%, #000 25%, transparent 78%);
+  mask-composite: intersect;
+  -webkit-mask-image:
+    linear-gradient(to bottom, #000 0%, transparent 90%),
+    radial-gradient(115% 100% at 50% 0%, #000 25%, transparent 78%);
+  -webkit-mask-composite: source-in;
+}
+
+/* Ambient wash. Two offset radials — azure and its cyan sibling — kept at very
+   low alpha so they register as light, not as colour blocks. */
+.grid-backdrop::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 28rem;
+  z-index: -1;
+  background-image:
+    radial-gradient(
+      55% 70% at 18% 0%,
+      color-mix(in srgb, var(--color-accent) 14%, transparent),
+      transparent 72%
+    ),
+    radial-gradient(
+      50% 65% at 84% 8%,
+      color-mix(in srgb, var(--color-glow) 10%, transparent),
+      transparent 72%
+    );
+}
+
+/* ---------------------------------------------------------------------------
    Interaction
 --------------------------------------------------------------------------- */
 
@@ -127,7 +201,7 @@ body {
   background: var(--color-rule);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #33332c;
+  background: #2c364a;
 }
 
 /* ---------------------------------------------------------------------------

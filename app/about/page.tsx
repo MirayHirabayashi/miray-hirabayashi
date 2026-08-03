@@ -28,7 +28,7 @@ const interests = [
 export default function AboutPage() {
   return (
     <>
-      <EditorialSection label="About" divider={false}>
+      <EditorialSection label="About" divider={false} backdrop>
         <Display as="h1">Hi, I&apos;m Miray.</Display>
         <Lede className="mt-6">
           Software engineering student at Iowa State University, minoring in

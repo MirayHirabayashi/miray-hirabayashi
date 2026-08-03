@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export default function SupportPage() {
   return (
     <>
-      <EditorialSection label="Support" divider={false}>
+      <EditorialSection label="Support" divider={false} backdrop>
         <Display as="h1">Support &amp; FAQ</Display>
         <Lede className="mt-6">
           Answers to common questions. Can&apos;t find what you need? Reach out

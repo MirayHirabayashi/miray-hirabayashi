@@ -24,11 +24,13 @@ export default function Home() {
   return (
     <>
       {/* ---------------------------------------------------------------- Hero */}
-      <section>
+      {/* `grid-backdrop` paints the blueprint grid and azure wash via
+          pseudo-elements; `isolate` keeps them behind the hero content. */}
+      <section className="grid-backdrop relative isolate overflow-hidden">
         <Container>
           <div className="grid grid-cols-1 gap-y-8 py-24 sm:py-36 lg:grid-cols-12 lg:gap-x-12">
             <div className="lg:col-span-3">
-              <Label className="animate-fade-up">{site.location}</Label>
+              <Label className="animate-fade-up">Iowa State University</Label>
             </div>
 
             <div className="lg:col-span-8 lg:col-start-5">

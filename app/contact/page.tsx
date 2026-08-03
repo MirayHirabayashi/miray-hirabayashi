@@ -28,7 +28,7 @@ const channels = [
 export default function ContactPage() {
   return (
     <>
-      <EditorialSection label="Contact" divider={false}>
+      <EditorialSection label="Contact" divider={false} backdrop>
         <Display as="h1">Let&apos;s talk.</Display>
         <Lede className="mt-6">
           Whether you have a role, a project, or just want to say hello — my

@@ -30,6 +30,7 @@ export function EditorialSection({
   id,
   className = "",
   divider = true,
+  backdrop = false,
 }: {
   label?: string;
   children: ReactNode;
@@ -37,11 +38,19 @@ export function EditorialSection({
   className?: string;
   /** Hairline rule above the section. Off for the first section on a page. */
   divider?: boolean;
+  /**
+   * Blueprint grid and azure wash behind the section. Reserved for the page
+   * header — one per page — so the technical field reads as an opening
+   * gesture rather than as wallpaper. See `.grid-backdrop` in globals.css.
+   */
+  backdrop?: boolean;
 }) {
   return (
     <section
       id={id}
-      className={`${divider ? "border-t border-rule" : ""} ${className}`}
+      className={`${divider ? "border-t border-rule" : ""} ${
+        backdrop ? "grid-backdrop relative isolate overflow-hidden" : ""
+      } ${className}`}
     >
       <Container>
         <div className="grid grid-cols-1 gap-y-8 py-16 sm:py-24 lg:grid-cols-12 lg:gap-x-12">

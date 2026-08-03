@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { site } from "@/lib/site";
 import { Container } from "@/components/ui";
 
@@ -18,6 +21,8 @@ const socials = [
 ];
 
 export function Footer() {
+  const isHome = usePathname() === "/";
+
   return (
     <footer className="border-t border-rule">
       <Container>
@@ -27,7 +32,7 @@ export function Footer() {
                 status, not a headline. */}
             <p className="label flex items-center gap-2 text-faint">
               <span className="h-1.5 w-1.5 flex-none rounded-full bg-accent" />
-              Available 2027
+              {isHome ? "Graduating in May 2027" : "Available 2027"}
             </p>
           </div>
 

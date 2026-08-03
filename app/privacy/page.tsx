@@ -29,7 +29,7 @@ const sections = [
 export default function PrivacyPage() {
   return (
     <>
-      <EditorialSection label="Legal" divider={false}>
+      <EditorialSection label="Legal" divider={false} backdrop>
         <Display as="h1">Privacy Policy</Display>
         <Lede className="mt-6">Last updated May 2026.</Lede>
       </EditorialSection>

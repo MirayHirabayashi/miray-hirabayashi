@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function ProjectsPage() {
   return (
     <>
-      <EditorialSection label="Portfolio" divider={false}>
+      <EditorialSection label="Portfolio" divider={false} backdrop>
         <Display as="h1">Projects</Display>
         <Lede className="mt-6">
           From native mobile apps to full-stack web tools — each entry lists its
