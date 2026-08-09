@@ -79,7 +79,7 @@ export default function Home() {
           <SectionHeading
             eyebrow="Selected work"
             title="Featured projects"
-            description="A few things I've designed and built recently, from native iOS apps to full-stack web tools."
+            description="A few things I've designed and built recently, from mobile apps to full-stack web tools."
           />
           <Link
             href="/projects"

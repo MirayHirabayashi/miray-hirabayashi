@@ -43,11 +43,32 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: "nextclose",
+    title: "NextClose",
+    summary: "Full-stack ML web app that predicts next-day stock price direction.",
+    description:
+      "A full-stack ML web app that predicts next-day stock price direction, with a FastAPI backend deployed on Google Cloud Run and a Next.js frontend.",
+    tech: ["Python", "FastAPI", "scikit-learn", "Docker", "Google Cloud Platform", "Next.js", "TypeScript", "PostgreSQL", "React", "Tailwind CSS"],
+    github: "https://github.com/MirayHirabayashi/nextclose",
+    demo: "https://nextclose.vercel.app/",
+  },
+  {
+    slug: "globebase",
+    title: "GlobeBase",
+    summary: "Interactive 3D globe for tracking travel across the world.",
+    description:
+      "A full-stack 3D globe travel tracker built with Next.js and Three.js, letting users log and revisit the places they've traveled.",
+    tech: ["Next.js", "React", "TypeScript", "Prisma", "PostgreSQL", "Three.js", "Tailwind CSS"],
+    github: "https://github.com/MirayHirabayashi/globebase",
+    demo: "https://globebase.vercel.app/",
+    featured: true,
+  },
+  {
     slug: "iowa-after-class",
     title: "Iowa After Class",
-    summary: "Full-stack event discovery platform for Iowa State students.",
+    summary: "Full-stack event discovery platform for students in Iowa.",
     description:
-      "A scalable event discovery platform built with Next.js and TypeScript, featuring serverless API routes that integrate real-time data from the Ticketmaster Discovery API. Prototyped UI/UX with a focus on performance and modular component architecture, then launched on Vercel with integrated analytics.",
+      "A full-stack event discovery platform for students in Iowa, pulling real-time listings from the Ticketmaster API.",
     tech: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
     demo: "https://www.iowaafterclass.com/",
     featured: true,
@@ -57,17 +78,17 @@ export const projects: Project[] = [
     title: "WorkSync",
     summary: "Mobile app for employee and project management.",
     description:
-      "An employee and project management app for small businesses to track staff, assign tasks, and manage workflows. Built the Android UI and application logic in Java with Gradle, integrating REST APIs, WebSockets, and full CRUD functionality. Set up CI/CD pipelines and unit testing in a collaborative Git/GitLab environment.",
+      "An Android app for small businesses to manage employees, tasks, and workflows.",
     tech: ["Java", "Android Studio", "Gradle", "REST APIs", "WebSockets"],
     github: "https://github.com/achen2304/WorkSync",
-    featured: true,
+    featured: false,
   },
   {
     slug: "stock-price-predictor",
     title: "Stock Price Predictor",
     summary: "ML model that predicts daily S&P 500 movement.",
     description:
-      "A machine learning model that predicts the daily direction of the S&P 500 index. Engineered custom financial indicators and used scikit-learn, pandas, and matplotlib for model training, data processing, and visualization. Achieved a precision score of 0.57, outperforming the baseline model.",
+      "A machine learning model that predicts the daily direction of the S&P 500 index.",
     tech: ["Python", "scikit-learn", "pandas", "matplotlib"],
     github: "https://github.com/MirayHirabayashi/stock-price-predictor",
   },
@@ -76,11 +97,11 @@ export const projects: Project[] = [
     title: "inkspeed",
     summary: "A dark-themed, minimalist typing speed test web application, built with React and styled using Tailwind CSS.",
     description:
-      "A minimalist, dark-themed typing speed test web app built with React and Tailwind CSS. It delivers a clean and focused typing experience with real-time stats and a responsive design.",
+      "A dark-themed, minimalist typing speed test web app built with React and Tailwind CSS.",
     tech: ["React", "JavaScript", "Tailwind CSS"],
     github: "https://github.com/MirayHirabayashi/inkspeed",
     demo: "https://inkspeed.vercel.app/",
-    featured: true,
+    featured: false,
   },
 ];
 
@@ -91,15 +112,23 @@ export const skills: { group: string; items: string[] }[] = [
   },
   {
     group: "Frameworks & Libraries",
-    items: ["React", "Next.js", "Node.js", "Express", "Angular", "Flask", "Tailwind CSS", "SwiftUI", "scikit-learn"],
+    items: ["React", "Angular", "Next.js", "Node.js", "Express", "Flask", "Prisma", "Tailwind CSS", "SwiftUI", "scikit-learn"],
   },
   {
-    group: "Tools & Databases",
-    items: ["Git", "Xcode", "Android Studio", "Figma", "Postman", "Vite", "MySQL", "MongoDB"],
+    group: "Cloud & DevOps",
+    items: ["Google Cloud Platform (GCP)", "Docker", "Supabase", "Vercel"],
+  },
+  {
+    group: "Developer Tools",
+    items: ["Git (GitHub, GitLab)", "Postman", "Figma", "Xcode", "Android Studio"],
+  },
+  {
+    group: "Databases",
+    items: ["PostgreSQL", "MySQL", "MongoDB"],
   },
   {
     group: "Environments",
-    items: ["Linux (Ubuntu, Kali)", "macOS", "Windows",],
+    items: ["Linux (Ubuntu, Debian, Kali)", "macOS", "Windows"],
   },
 ];
 
@@ -119,7 +148,7 @@ export const experience = [
     company: "Iowa Department of Transportation",
     period: "May 2025 – Present",
     points: [
-      "Developed a Python-based CLI tool to reconcile data between Workday and Microsoft Access exports, automating validation across 11,000+ records.",
+      "Developed a Python CLI application to automate validation and reconciliation between Workday and Microsoft Access datasets, processing 11,000+ records and eliminating manual verification.",
       "Automated data entry and reporting workflows using Microsoft Excel (XLOOKUP), improving database accuracy and reducing manual processing time.",
     ],
   },

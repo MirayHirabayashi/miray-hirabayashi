@@ -18,10 +18,10 @@ const interests = [
   "Mobile Development",
   "Full-Stack Engineering",
   "Cybersecurity",
+  "AI/ML",
   "Human-centered design",
   "Accessibility",
   "Developer tooling",
-  "Open source",
 ];
 
 export default function AboutPage() {
