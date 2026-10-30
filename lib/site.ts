@@ -13,7 +13,7 @@ export const site = {
   shortBio:
     "I build full-stack web apps, mobile apps, and data-driven tools with an eye for clean architecture and a passion for shipping things that work.",
   email: "mirayhirabayashi@gmail.com",
-  location: "Ames, Iowa",
+  location: "Ames, Iowa, USA",
   resumePath: "/resume.pdf",
   appUrl: "https://github.com/MirayHirabayashi",
   socials: {

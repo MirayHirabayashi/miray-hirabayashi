@@ -15,10 +15,10 @@ export default function ProjectsPage() {
       <SectionHeading
         eyebrow="Portfolio"
         title="Projects"
-        description="From mobile apps to full-stack web tools — each project below lists its stack with links to the source code or a live demo where available."
+        description="From mobile apps to full-stack web tools, each project below lists its stack with links to the source code or a live demo where available."
       />
 
-      <div className="mt-14 grid gap-6 md:grid-cols-2">
+      <div className="mt-14 grid auto-rows-fr gap-6 md:grid-cols-2">
         {projects.map((project) => (
           <ProjectCard key={project.slug} project={project} />
         ))}

@@ -35,8 +35,10 @@ export default function Home() {
         <Container className="animate-fade-up">
           <div className="max-w-3xl">
             <p className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-1.5 text-sm text-muted">
-              <span className="h-2 w-2 rounded-full bg-accent" />
-              Available for 2027 new-grad roles · Full-Stack · Mobile
+              <span aria-hidden className="font-mono font-semibold text-accent">
+                &lt;&gt;
+              </span>
+              Available for 2027 new-grad roles
             </p>
 
             <h1 className="mt-6 text-4xl font-semibold leading-[1.1] tracking-tight text-text sm:text-6xl">
