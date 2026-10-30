@@ -112,7 +112,7 @@ export const skills: { group: string; items: string[] }[] = [
   },
   {
     group: "Frameworks & Libraries",
-    items: ["React", "Angular", "Next.js", "Node.js", "Express", "Flask", "Prisma", "Tailwind CSS", "SwiftUI", "scikit-learn"],
+    items: ["React", "Angular", "Next.js", "Node.js", "Express", "Flask", "Prisma", "Tailwind CSS", "scikit-learn", "FastAPI"],
   },
   {
     group: "Cloud & DevOps",
@@ -128,7 +128,7 @@ export const skills: { group: string; items: string[] }[] = [
   },
   {
     group: "Environments",
-    items: ["Linux (Ubuntu, Debian, Kali)", "macOS", "Windows"],
+    items: ["Linux", "macOS", "Windows"],
   },
 ];
 
@@ -144,12 +144,12 @@ export const education = [
 
 export const experience = [
   {
-    role: "Administrative Intern",
-    company: "Iowa Department of Transportation",
-    period: "May 2025 – Present",
+    role: "Undergraduate Teaching Assistant",
+    company: "Iowa State University — Department of Electrical and Computer Engineering",
+    period: "Sep 2026 – Present",
     points: [
-      "Developed a Python CLI application to automate validation and reconciliation between Workday and Microsoft Access datasets, processing 11,000+ records and eliminating manual verification.",
-      "Automated data entry and reporting workflows using Microsoft Excel (XLOOKUP), improving database accuracy and reducing manual processing time.",
+      "Support 20+ students with C programming and Linux-based lab exercises, troubleshooting code and explaining operating system concepts including processes, threads, scheduling, and memory management.",
+      "Grade assignments and lab reports, reviewing students' C programs and Makefiles while evaluating their understanding of operating system concepts and providing constructive feedback.",
     ],
   },
   {
@@ -157,7 +157,15 @@ export const experience = [
     company: "Iowa State University — Language Studies Resource Center",
     period: "Dec 2024 – Present",
     points: [
-      "Provide technical support and troubleshooting for hardware and software used by students and faculty.",
+      "Troubleshoot hardware and software issues for students and faculty, supporting classroom technology, displays, projectors, printing/scanning systems, and related equipment.",
+    ],
+  },
+  {
+    role: "Administrative Intern",
+    company: "Iowa Department of Transportation",
+    period: "May 2025 – Sep 2026",
+    points: [
+      "Developed a Python CLI application to automate validation and reconciliation between Workday and Microsoft Access datasets, processing 11,000+ records and eliminating manual verification.",
     ],
   },
 ];

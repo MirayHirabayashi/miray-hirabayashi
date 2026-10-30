@@ -14,6 +14,19 @@ export const metadata: Metadata = {
     "Resume of Miray Hirabayashi — skills, education, and experience. View online or download the PDF.",
 };
 
+/** Bolds figures like "20+" or "11,000+" so the numbers stand out. */
+function highlightNumbers(text: string) {
+  return text.split(/(\d[\d,]*\+?)/).map((part, i) =>
+    i % 2 === 1 ? (
+      <strong key={i} className="font-semibold text-text">
+        {part}
+      </strong>
+    ) : (
+      part
+    ),
+  );
+}
+
 export default function ResumePage() {
   return (
     <>
@@ -85,7 +98,7 @@ export default function ResumePage() {
                     className="flex gap-3 text-sm leading-relaxed text-muted"
                   >
                     <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-accent" />
-                    {point}
+                    <span>{highlightNumbers(point)}</span>
                   </li>
                 ))}
               </ul>

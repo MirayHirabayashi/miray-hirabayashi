@@ -39,17 +39,19 @@ export default function AboutPage() {
             </p>
             <p>
               My work spans full-stack web development, mobile apps, and
-              Python-based data tools. My cybersecurity minor shapes how I think
-              about the systems I build, from API design to data handling.
-              Whether it&apos;s a responsive React frontend, a mobile app,
-              or an ML pipeline, I care about building software that is correct,
-              maintainable, and genuinely useful.
+              Python-based data tools. At the Iowa DOT, I built a Python CLI
+              application that validates and reconciles Workday and Microsoft
+              Access data, processing 11,000+ records and eliminating manual
+              verification. My cybersecurity minor shapes how I think about the
+              systems I build, from API design to data handling.
             </p>
             <p>
-              Outside of coursework I build side projects, contribute to open
-              source, and help fellow students level up their development
-              skills. I&apos;m driven by curiosity and a belief that great
-              engineering and great design are inseparable.
+              Outside of coursework, I build projects like NextClose, a stock
+              movement predictor trained on 35+ years of market data, and Iowa
+              After Class, an event discovery platform for students in Iowa.
+              I&apos;m also a teaching assistant for Operating Systems (CPRE
+              3080), helping 20+ students debug C programs and make sense of
+              processes, threads, and memory.
             </p>
 
             <div className="flex items-center gap-2 pt-2 text-base text-muted">
