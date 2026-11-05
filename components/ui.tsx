@@ -1,7 +1,7 @@
 import Link from "next/link";
-import type { ComponentProps, ReactNode } from "react";
+import type { ReactNode } from "react";
 
-/** Centered, max-width content wrapper used by every section. */
+/** Centered, max-width content wrapper. */
 export function Container({
   className = "",
   children,
@@ -10,108 +10,243 @@ export function Container({
   children: ReactNode;
 }) {
   return (
-    <div className={`mx-auto w-full max-w-6xl px-6 sm:px-8 ${className}`}>
+    <div className={`mx-auto w-full max-w-[1024px] px-5 sm:px-8 ${className}`}>
       {children}
     </div>
   );
 }
 
-/** Vertical rhythm wrapper for page sections. */
-export function Section({
-  className = "",
+/* ------------------------------------------------------------------ Buttons */
+
+export type ButtonVariant = "primary" | "secondary" | "secondary-dark";
+
+const buttonStyles: Record<ButtonVariant, string> = {
+  primary: "bg-accent text-white hover:bg-accent-hover",
+  secondary:
+    "border border-link text-link hover:bg-link hover:text-white",
+  "secondary-dark":
+    "border border-link-dark text-link-dark hover:bg-link-dark hover:text-night",
+};
+
+const buttonBase =
+  "inline-flex items-center justify-center whitespace-nowrap rounded-full px-[22px] py-[11px] text-[17px] leading-none tracking-[-0.01em] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2";
+
+/**
+ * Pill button. Internal hrefs render a Next.js <Link>; anything external,
+ * a mailto: or a download renders a plain <a>.
+ */
+export function Button({
+  href,
   children,
-  id,
+  variant = "primary",
+  download,
+  className = "",
 }: {
-  className?: string;
+  href: string;
   children: ReactNode;
-  id?: string;
+  variant?: ButtonVariant;
+  download?: boolean;
+  className?: string;
 }) {
-  return (
-    <section id={id} className={`py-16 sm:py-24 ${className}`}>
-      <Container>{children}</Container>
-    </section>
-  );
-}
+  const classes = `${buttonBase} ${buttonStyles[variant]} ${className}`;
+  const isInternal = href.startsWith("/") && !download;
 
-/** Small accent label that sits above headings. */
-export function Eyebrow({ children }: { children: ReactNode }) {
+  if (isInternal) {
+    return (
+      <Link href={href} className={classes}>
+        {children}
+      </Link>
+    );
+  }
+
+  const isExternal = /^https?:\/\//.test(href);
   return (
-    <span className="text-sm font-medium uppercase tracking-[0.2em] text-accent">
+    <a
+      href={href}
+      className={classes}
+      download={download || undefined}
+      {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+    >
       {children}
-    </span>
+    </a>
   );
 }
 
-export function SectionHeading({
+export type ButtonSpec = {
+  label: string;
+  href: string;
+  download?: boolean;
+};
+
+/* -------------------------------------------------------------- Typography */
+
+export type Theme = "light" | "dark";
+
+/**
+ * Centered tile heading: small caps eyebrow, display title, subtitle and up to
+ * two buttons. The first button is always the solid one.
+ */
+export function TileHeader({
   eyebrow,
   title,
-  description,
-  className = "",
+  subtitle,
+  actions = [],
+  theme = "light",
+  size = "large",
+  as: Heading = "h2",
 }: {
   eyebrow?: string;
   title: ReactNode;
-  description?: ReactNode;
-  className?: string;
+  subtitle?: ReactNode;
+  actions?: ButtonSpec[];
+  theme?: Theme;
+  size?: "large" | "small";
+  as?: "h1" | "h2";
 }) {
+  const dark = theme === "dark";
+  const large = size === "large";
+
   return (
-    <div className={`max-w-2xl ${className}`}>
-      {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
-      <h2 className="mt-3 text-3xl font-semibold tracking-tight text-text sm:text-4xl">
+    <div className="mx-auto flex max-w-[980px] flex-col items-center px-5 text-center">
+      {eyebrow ? (
+        <p
+          className={`text-[12px] font-semibold uppercase tracking-[0.04em] sm:text-[14px] ${
+            large ? "lg:text-[17px]" : ""
+          } ${dark ? "text-ash" : "text-muted"}`}
+        >
+          {eyebrow}
+        </p>
+      ) : null}
+      <Heading
+        className={`text-display mt-1.5 font-semibold leading-[1.1] ${
+          large
+            ? "text-[36px] sm:text-[48px] lg:text-[56px]"
+            : "text-[32px] sm:text-[36px] lg:text-[40px]"
+        } ${dark ? "text-cloud" : "text-ink"}`}
+      >
         {title}
-      </h2>
-      {description ? (
-        <p className="mt-4 text-lg leading-relaxed text-muted">{description}</p>
+      </Heading>
+      {subtitle ? (
+        <p
+          className={`mt-1.5 leading-snug ${
+            large
+              ? "text-[19px] sm:text-[24px] lg:text-[28px]"
+              : "text-[17px] sm:text-[19px] lg:text-[21px]"
+          } ${dark ? "text-cloud" : "text-ink"}`}
+        >
+          {subtitle}
+        </p>
+      ) : null}
+      {actions.length > 0 ? (
+        <div className="mt-5 flex flex-wrap justify-center gap-3 sm:mt-6 sm:gap-3.5">
+          {actions.map((action, i) => (
+            <Button
+              key={action.label}
+              href={action.href}
+              download={action.download}
+              variant={
+                i === 0 ? "primary" : dark ? "secondary-dark" : "secondary"
+              }
+            >
+              {action.label}
+            </Button>
+          ))}
+        </div>
       ) : null}
     </div>
   );
 }
 
-type ButtonVariant = "primary" | "secondary" | "ghost";
-
-const buttonStyles: Record<ButtonVariant, string> = {
-  primary:
-    "bg-accent text-bg hover:bg-accent-hover shadow-[0_0_0_1px_rgba(79,140,255,0.4)]",
-  secondary:
-    "border border-border bg-surface text-text hover:border-accent/60 hover:bg-surface-2",
-  ghost: "text-muted hover:text-text",
-};
-
-const buttonBase =
-  "inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg";
-
-/** Internal link styled as a button. */
-export function ButtonLink({
-  variant = "primary",
-  className = "",
-  ...props
-}: ComponentProps<typeof Link> & { variant?: ButtonVariant }) {
+/** Large page title used at the top of inner pages. */
+export function PageHero({
+  title,
+  subtitle,
+  meta,
+  actions = [],
+}: {
+  title: string;
+  subtitle?: ReactNode;
+  meta?: string;
+  actions?: ButtonSpec[];
+}) {
   return (
-    <Link
-      className={`${buttonBase} ${buttonStyles[variant]} ${className}`}
-      {...props}
-    />
+    <section className="px-5 pb-12 pt-16 text-center sm:pb-16 sm:pt-24 lg:pt-28">
+      <h1 className="text-display text-[48px] font-semibold leading-[1.05] text-ink sm:text-[64px] lg:text-[80px]">
+        {title}
+      </h1>
+      {subtitle ? (
+        <p className="mx-auto mt-4 max-w-[940px] text-[19px] leading-snug text-muted sm:text-[24px]">
+          {subtitle}
+        </p>
+      ) : null}
+      {meta ? <p className="mt-4 text-[13px] text-muted sm:text-sm">{meta}</p> : null}
+      {actions.length > 0 ? (
+        <div className="mt-6 flex flex-wrap justify-center gap-3">
+          {actions.map((a, i) => (
+            <Button
+              key={a.label}
+              href={a.href}
+              download={a.download}
+              variant={i === 0 ? "primary" : "secondary"}
+            >
+              {a.label}
+            </Button>
+          ))}
+        </div>
+      ) : null}
+    </section>
   );
 }
 
-/** External link (or download) styled as a button. */
-export function ButtonAnchor({
-  variant = "primary",
-  className = "",
-  ...props
-}: ComponentProps<"a"> & { variant?: ButtonVariant }) {
+/** Small caps label used above headings inside panels. */
+export function Eyebrow({
+  children,
+  dark = false,
+}: {
+  children: ReactNode;
+  dark?: boolean;
+}) {
   return (
-    <a
-      className={`${buttonBase} ${buttonStyles[variant]} ${className}`}
-      {...props}
-    />
-  );
-}
-
-/** Pill used for tech-stack tags and skill chips. */
-export function Tag({ children }: { children: ReactNode }) {
-  return (
-    <span className="rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium text-muted">
+    <p
+      className={`text-[12px] font-semibold uppercase tracking-[0.04em] sm:text-[13px] ${
+        dark ? "text-ash" : "text-muted"
+      }`}
+    >
       {children}
-    </span>
+    </p>
+  );
+}
+
+/** Gray rounded card with an icon, title, body and optional link. */
+export function InfoCard({
+  icon,
+  title,
+  children,
+  link,
+}: {
+  icon: ReactNode;
+  title: string;
+  children: ReactNode;
+  link?: { label: string; href: string };
+}) {
+  return (
+    <div className="flex h-full flex-col rounded-[24px] bg-mist px-6 pb-[30px] pt-7 md:rounded-[28px] md:px-9 md:pb-10 md:pt-9">
+      <span className="text-accent">{icon}</span>
+      <h2 className="mt-4 text-[21px] font-semibold tracking-[-0.015em] text-ink md:mt-[18px] md:text-[24px]">
+        {title}
+      </h2>
+      <p className="mt-2 text-[16px] leading-[23px] text-muted md:text-[17px] md:leading-[25px]">
+        {children}
+      </p>
+      {link ? (
+        <a
+          href={link.href}
+          {...(link.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+          className="mt-2 text-[16px] text-link hover:underline md:text-[17px]"
+        >
+          {link.label}
+        </a>
+      ) : null}
+    </div>
   );
 }

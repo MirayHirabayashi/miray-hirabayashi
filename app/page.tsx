@@ -1,165 +1,229 @@
 import Link from "next/link";
-import { site, projects, skills } from "@/lib/site";
+import type { ReactNode } from "react";
+import { projects, site, skills } from "@/lib/site";
+import { TileHeader, type ButtonSpec, type Theme } from "@/components/ui";
 import {
-  Container,
-  Section,
-  SectionHeading,
-  ButtonLink,
-  ButtonAnchor,
-  Tag,
-} from "@/components/ui";
-import { ProjectCard } from "@/components/ProjectCard";
-import {
-  ArrowRightIcon,
-  DownloadIcon,
-  MailIcon,
-  AppleIcon,
-} from "@/components/icons";
+  AndroidCrmIllustration,
+  ChartIllustration,
+  DevicesIllustration,
+  EventsIllustration,
+  GlobeIllustration,
+  SchedulerIllustration,
+  TerminalIllustration,
+} from "@/components/illustrations";
+
+const project = (slug: string) => {
+  const p = projects.find((x) => x.slug === slug);
+  if (!p) throw new Error(`Unknown project: ${slug}`);
+  return p;
+};
+
+/** Builds "Live demo" / "View code" buttons from whatever links a project has. */
+function projectActions(slug: string): ButtonSpec[] {
+  const p = project(slug);
+  return [
+    ...(p.demo ? [{ label: "Live demo", href: p.demo }] : []),
+    ...(p.github ? [{ label: "View code", href: p.github }] : []),
+  ];
+}
+
+const tileBg: Record<string, string> = {
+  white: "bg-canvas",
+  gray: "bg-mist",
+  black: "bg-night",
+  graphite: "bg-graphite",
+};
+
+/** A full-bleed (or grid) panel: heading on top, illustration below. */
+function Tile({
+  bg,
+  theme = "light",
+  size = "large",
+  eyebrow,
+  title,
+  subtitle,
+  actions,
+  className = "",
+  children,
+}: {
+  bg: keyof typeof tileBg;
+  theme?: Theme;
+  size?: "large" | "small";
+  eyebrow?: string;
+  title: ReactNode;
+  subtitle?: ReactNode;
+  actions?: ButtonSpec[];
+  className?: string;
+  children?: ReactNode;
+}) {
+  return (
+    <section
+      className={`flex flex-col items-center overflow-hidden pt-11 sm:pt-14 ${tileBg[bg]} ${className}`}
+    >
+      <TileHeader
+        eyebrow={eyebrow}
+        title={title}
+        subtitle={subtitle}
+        actions={actions}
+        theme={theme}
+        size={size}
+      />
+      <div className="mt-8 flex w-full flex-1 justify-center sm:mt-11">{children}</div>
+    </section>
+  );
+}
 
 export default function Home() {
-  const featured = projects.filter((p) => p.featured).slice(0, 2);
-
   return (
-    <>
-      {/* ---------------------------------------------------------------- Hero */}
-      <section className="relative overflow-hidden py-20 sm:py-32">
-        {/* Ambient background glow */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 -z-10"
+    <div className="flex flex-col gap-3 pb-3">
+      {/* -------------------------------------------------------- Ribbon */}
+      <p className="bg-mist px-6 py-3.5 text-center text-[14px] leading-snug text-ink sm:py-[17px]">
+        Graduating May 2027 and open to full-stack, mobile, and any tech
+        engineering roles.{" "}
+        <Link href="/contact" className="whitespace-nowrap text-link hover:underline">
+          Get in touch ›
+        </Link>
+      </p>
+
+      {/* ---------------------------------------------------------- Hero */}
+      <div className="animate-fade-up flex flex-col items-center overflow-hidden bg-canvas pb-11 pt-11 sm:pb-0 sm:pt-14 md:min-h-[860px]">
+        <TileHeader
+          as="h1"
+          eyebrow={site.name}
+          title="Built to ship."
+          subtitle="Software engineer crafting full-stack, mobile, and ML products."
+          actions={[
+            { label: "See my work", href: "/projects" },
+            { label: "Résumé", href: "/resume" },
+          ]}
+        />
+        <DevicesIllustration className="mt-8 w-[90%] max-w-[1000px] sm:mt-11" />
+      </div>
+
+      {/* ----------------------------------------------------- GlobeBase */}
+      <Tile
+        bg="black"
+        theme="dark"
+        eyebrow="GlobeBase"
+        title="The whole world. Logged."
+        subtitle="A 3D travel tracker built with Next.js, Three.js, and Prisma."
+        actions={projectActions("globebase")}
+        className="h-[620px] md:h-[780px]"
+      >
+        <GlobeIllustration className="w-[300px] md:w-[560px]" />
+      </Tile>
+
+      {/* ---------------------------------------------- Iowa After Class */}
+      <Tile
+        bg="gray"
+        eyebrow="Iowa After Class"
+        title="Your weekend, sorted."
+        subtitle="Real-time event discovery for Iowa students, powered by the Ticketmaster API."
+        actions={projectActions("iowa-after-class")}
+        className="pb-11 md:h-[780px] md:pb-0"
+      >
+        <EventsIllustration />
+      </Tile>
+
+      {/* -------------------------------------------------- Feature grid */}
+      <div className="grid gap-3 md:grid-cols-2 md:px-3">
+        <Tile
+          bg="black"
+          theme="dark"
+          size="small"
+          eyebrow="NextClose"
+          title="Tomorrow's close, today."
+          subtitle="A machine learning app that predicts next-day stock price direction."
+          actions={projectActions("nextclose")}
+          className="md:h-[600px]"
         >
-          <div className="absolute left-1/2 top-[-10%] h-[480px] w-[680px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(79,140,255,0.18),transparent)] blur-2xl" />
-          <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent,rgba(11,13,16,0.6))]" />
-        </div>
+          <ChartIllustration className="w-full max-w-[560px] self-end" />
+        </Tile>
 
-        <Container className="animate-fade-up">
-          <div className="max-w-3xl">
-            <p className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-1.5 text-sm text-muted">
-              <span aria-hidden className="font-mono font-semibold text-accent">
-                &lt;&gt;
-              </span>
-              Available for 2027 new-grad roles
-            </p>
+        <Tile
+          bg="white"
+          size="small"
+          eyebrow="Team project"
+          title="WorkSync"
+          subtitle="A collaborative CRM Android app, built with Java and Spring Boot."
+          actions={projectActions("worksync")}
+          className="h-[560px] md:h-[600px]"
+        >
+          <AndroidCrmIllustration />
+        </Tile>
 
-            <h1 className="mt-6 text-4xl font-semibold leading-[1.1] tracking-tight text-text sm:text-6xl">
-              {site.name}
-            </h1>
-            <p className="mt-4 text-lg font-medium text-accent sm:text-xl">
-              {site.title}
-            </p>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">
-              {site.tagline}
-            </p>
+        <Tile
+          bg="gray"
+          size="small"
+          eyebrow="Iowa DOT · Experience"
+          title="11,000+ records. Verified."
+          subtitle="A Python CLI that validates and reconciles Workday and Access data."
+          actions={[{ label: "Résumé", href: "/resume" }]}
+          className="pb-11 md:h-[600px] md:pb-0"
+        >
+          <TerminalIllustration />
+        </Tile>
 
-            <div className="mt-9 flex flex-wrap gap-3">
-              <ButtonLink href="/projects">
-                View Projects
-                <ArrowRightIcon width={18} height={18} />
-              </ButtonLink>
-               {/* TODO: Add Apple App Store link when app is published */}
-              {/* <ButtonAnchor
-                href={site.appUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                variant="secondary"
-              >
-                <AppleIcon width={18} height={18} />
-                Download App
-              </ButtonAnchor> */}
-              <ButtonLink href="/contact" variant="secondary">
-                <MailIcon width={18} height={18} />
-                Contact
-              </ButtonLink>
-            </div>
+        <Tile
+          bg="graphite"
+          theme="dark"
+          size="small"
+          eyebrow="CPRE 3080 · Teaching Assistant"
+          title="Making OS make sense."
+          subtitle="Helping 20+ students debug C, processes, threads, and memory."
+          actions={[
+            { label: "About me", href: "/about" },
+            { label: "Experience", href: "/resume" },
+          ]}
+          className="pb-11 md:h-[600px] md:pb-0"
+        >
+          <SchedulerIllustration className="w-[calc(100%-2.5rem)] max-w-[560px]" />
+        </Tile>
+      </div>
+
+      {/* ------------------------------------------------------- Toolkit */}
+      <section className="bg-mist px-5 pb-16 pt-14 sm:px-8 sm:pb-28 sm:pt-24">
+        <div className="mx-auto max-w-[1176px]">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <h2 className="text-display text-[34px] font-semibold text-ink sm:text-[48px]">
+              The toolkit.
+            </h2>
+            <p className="text-[17px] text-muted sm:text-[21px]">
+              A pragmatic stack, focused on shipping reliable software.
+            </p>
           </div>
-        </Container>
+          <ul className="mt-8 grid gap-3 sm:mt-10 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+            {skills.map((group, i) => (
+              <li
+                key={group.group}
+                className="rounded-[28px] bg-canvas p-7 shadow-[0_4px_24px_rgba(0,0,0,0.06)] sm:min-h-[300px] sm:p-8"
+              >
+                <p className="text-[14px] font-semibold tracking-[0.04em] text-muted">
+                  {String(i + 1).padStart(2, "0")}
+                </p>
+                <h3 className="text-display mt-3.5 text-[28px] font-semibold text-ink">
+                  {group.group}
+                </h3>
+                <p className="mt-3.5 text-[17px] leading-[26px] text-muted">
+                  {group.items.join(" · ")}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
       </section>
 
-      {/* ----------------------------------------------------- Featured work */}
-      <Section className="border-t border-border">
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <SectionHeading
-            eyebrow="Selected work"
-            title="Featured projects"
-            description="A few things I've designed and built recently, from mobile apps to full-stack web tools."
-          />
-          <Link
-            href="/projects"
-            className="inline-flex items-center gap-2 text-sm font-medium text-accent transition-colors hover:text-accent-hover"
-          >
-            All projects
-            <ArrowRightIcon width={18} height={18} />
-          </Link>
-        </div>
-
-        <div className="mt-12 grid gap-6 md:grid-cols-2">
-          {featured.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
-          ))}
-        </div>
-      </Section>
-
-      {/* ------------------------------------------------------------ Skills */}
-      <Section className="border-t border-border">
-        <SectionHeading
-          eyebrow="Toolkit"
-          title="What I work with"
-          description="A pragmatic stack focused on shipping reliable, well-tested software."
+      {/* ----------------------------------------------------------- CTA */}
+      <section className="bg-canvas py-[72px] sm:py-32">
+        <TileHeader
+          title="Let's build something great."
+          subtitle="Have a role or project in mind? I'd love to hear about it."
+          actions={[
+            { label: "Get in touch", href: "/contact" },
+            { label: "Download résumé", href: site.resumePath, download: true },
+          ]}
         />
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {skills.map((group) => (
-            <div
-              key={group.group}
-              className="rounded-2xl border border-border bg-surface p-6"
-            >
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-accent">
-                {group.group}
-              </h3>
-              <ul className="mt-4 space-y-2">
-                {group.items.map((item) => (
-                  <li key={item} className="text-sm text-muted">
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      {/* --------------------------------------------------------------- CTA */}
-      <Section className="border-t border-border">
-        <div className="relative overflow-hidden rounded-3xl border border-border bg-surface p-10 sm:p-16">
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_120%_at_80%_0%,rgba(79,140,255,0.18),transparent_55%)]"
-          />
-          <div className="relative max-w-2xl">
-            <h2 className="text-3xl font-semibold tracking-tight text-text sm:text-4xl">
-              Let&apos;s build something great.
-            </h2>
-            <p className="mt-4 text-lg text-muted">
-              I&apos;m currently looking for full-stack, mobile, or any tech
-              engineering opportunities, graduating Spring 2027. Have a role or
-              project in mind? I&apos;d love to hear about it.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <ButtonLink href="/contact">
-                Get in touch
-                <ArrowRightIcon width={18} height={18} />
-              </ButtonLink>
-              <ButtonAnchor
-                href={site.resumePath}
-                download
-                variant="secondary"
-              >
-                <DownloadIcon width={18} height={18} />
-                Download résumé
-              </ButtonAnchor>
-            </div>
-          </div>
-        </div>
-      </Section>
-    </>
+      </section>
+    </div>
   );
 }

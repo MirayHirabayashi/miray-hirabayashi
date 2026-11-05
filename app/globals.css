@@ -2,36 +2,50 @@
 
 /* ---------------------------------------------------------------------------
    Design tokens
-   These map directly to the palette in the project brief. Exposing them via
-   Tailwind's @theme means utilities like `bg-bg`, `bg-surface`, `text-muted`,
-   `border-border` and `text-accent` are generated automatically.
+   A bright, product-page palette: white and light-gray canvases alternate
+   with full-bleed black tiles. Exposed through Tailwind's @theme so
+   utilities like `bg-mist`, `text-ink`, `text-muted` and `bg-accent` exist.
 --------------------------------------------------------------------------- */
 @theme {
-  --color-bg: #0b0d10;
-  --color-surface: #11151a;
-  --color-surface-2: #161b22;
-  --color-border: #1e242c;
-  --color-text: #f5f7fa;
-  --color-muted: #a0a8b3;
-  --color-accent: #4f8cff;
-  --color-accent-hover: #6ba0ff;
+  /* Surfaces */
+  --color-canvas: #ffffff;
+  --color-mist: #f5f5f7;
+  --color-night: #000000;
+  --color-graphite: #161617;
+  --color-hairline: #d2d2d7;
+
+  /* Text */
+  --color-ink: #1d1d1f;
+  --color-muted: #6e6e73;
+  --color-cloud: #f5f5f7;
+  --color-ash: #a1a1a6;
+
+  /* Accent */
+  --color-accent: #0071e3;
+  --color-accent-hover: #0077ed;
+  --color-link: #0066cc;
+  --color-link-dark: #2997ff;
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
-    "SF Pro Display", "Segoe UI", sans-serif;
+    "Segoe UI", sans-serif;
 }
 
-/* Smooth in-page navigation, with offset so anchored content clears the
-   sticky header. */
+/* Smooth in-page navigation, offset so anchors clear the sticky header. */
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 6rem;
+  scroll-padding-top: 4rem;
 }
 
 body {
-  background-color: var(--color-bg);
-  color: var(--color-text);
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/* Large display headings read better slightly tightened. */
+.text-display {
+  letter-spacing: -0.025em;
 }
 
 /* Respect users who prefer reduced motion. */
@@ -48,33 +62,16 @@ body {
   }
 }
 
-/* Subtle, accent-coloured selection. */
 ::selection {
-  background-color: color-mix(in srgb, var(--color-accent) 30%, transparent);
-  color: var(--color-text);
+  background-color: color-mix(in srgb, var(--color-accent) 22%, transparent);
+  color: var(--color-ink);
 }
 
-/* Custom scrollbar that fits the dark theme. */
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-::-webkit-scrollbar-track {
-  background: var(--color-bg);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--color-border);
-  border-radius: 9999px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #2a323c;
-}
-
-/* Shared entrance animation, used sparingly for section reveals. */
+/* Shared entrance animation, used sparingly for tile reveals. */
 @keyframes fade-up {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -83,5 +80,13 @@ body {
 }
 
 .animate-fade-up {
-  animation: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Hide the default disclosure marker on <details> FAQ items. */
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
 }
