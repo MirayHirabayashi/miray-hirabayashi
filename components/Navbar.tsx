@@ -37,68 +37,71 @@ export function Navbar() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 bg-[#fafafc]/90 backdrop-blur-xl backdrop-saturate-150">
-      <nav className="mx-auto flex h-12 max-w-[1024px] items-center justify-between px-5 sm:px-8">
-        <Link
-          href="/"
-          className="text-[17px] font-semibold tracking-[-0.02em] text-ink"
-          onClick={() => setOpen(false)}
-        >
-          {site.name}
-        </Link>
+    <>
+      <header className="sticky top-0 z-50 bg-[#fafafc]/90 backdrop-blur-xl backdrop-saturate-150">
+        <nav className="mx-auto flex h-12 max-w-[1024px] items-center justify-between px-5 sm:px-8">
+          <Link
+            href="/"
+            className="text-[17px] font-semibold tracking-[-0.02em] text-ink"
+            onClick={() => setOpen(false)}
+          >
+            {site.name}
+          </Link>
 
-        {/* Desktop links */}
-        <div className="hidden items-center gap-8 md:flex">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              aria-current={isActive(link.href) ? "page" : undefined}
-              className={`text-[12px] tracking-[-0.01em] transition-colors hover:text-ink ${
-                isActive(link.href) ? "text-ink" : "text-ink/80"
-              }`}
-            >
-              {link.label}
-            </Link>
-          ))}
-          <div className="flex items-center gap-5">
-            {socialLinks.map(({ label, href, Icon }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={label}
-                className="text-ink/85 transition-colors hover:text-ink"
+          {/* Desktop links */}
+          <div className="hidden items-center gap-8 md:flex">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                aria-current={isActive(link.href) ? "page" : undefined}
+                className={`text-[12px] tracking-[-0.01em] transition-colors hover:text-ink ${
+                  isActive(link.href) ? "text-ink" : "text-ink/80"
+                }`}
               >
-                <Icon width={16} height={16} />
-              </a>
+                {link.label}
+              </Link>
             ))}
+            <div className="flex items-center gap-5">
+              {socialLinks.map(({ label, href, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="text-ink/85 transition-colors hover:text-ink"
+                >
+                  <Icon width={16} height={16} />
+                </a>
+              ))}
+            </div>
           </div>
-        </div>
 
-        {/* Mobile toggle */}
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          className="-mr-2 inline-flex h-10 w-10 items-center justify-center text-ink md:hidden"
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          aria-controls="mobile-menu"
-        >
-          {open ? (
-            <CloseIcon width={18} height={18} />
-          ) : (
-            <MenuIcon width={20} height={20} />
-          )}
-        </button>
-      </nav>
+          {/* Mobile toggle */}
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            className="-mr-2 inline-flex h-10 w-10 items-center justify-center text-ink md:hidden"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+          >
+            {open ? (
+              <CloseIcon width={18} height={18} />
+            ) : (
+              <MenuIcon width={20} height={20} />
+            )}
+          </button>
+        </nav>
+      </header>
 
-      {/* Full-screen mobile menu */}
+      {/* Full-screen mobile menu. Rendered outside <header> because the
+          header's backdrop-filter would otherwise clip a fixed child. */}
       {open ? (
         <div
           id="mobile-menu"
-          className="animate-fade-up fixed inset-x-0 bottom-0 top-12 flex flex-col overflow-y-auto bg-canvas px-10 pb-10 pt-7 md:hidden"
+          className="animate-fade-up fixed inset-x-0 bottom-0 top-12 z-50 flex flex-col overflow-y-auto bg-canvas px-10 pb-10 pt-7 md:hidden"
         >
           <ul className="flex flex-col gap-1.5">
             {navLinks.map((link) => (
@@ -149,6 +152,6 @@ export function Navbar() {
           </p>
         </div>
       ) : null}
-    </header>
+    </>
   );
 }
