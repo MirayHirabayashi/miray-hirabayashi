@@ -1,17 +1,11 @@
 import type { Metadata } from "next";
-import { site, skills } from "@/lib/site";
-import {
-  Section,
-  SectionHeading,
-  ButtonLink,
-  Tag,
-} from "@/components/ui";
-import { ArrowRightIcon, MapPinIcon } from "@/components/icons";
+import { site } from "@/lib/site";
+import { Button, Eyebrow } from "@/components/ui";
 
 export const metadata: Metadata = {
   title: "About",
   description:
-    "About Miray Hirabayashi — background, interests, and career goals as a senior software engineering student with a minor in Cybersecurity, interested in full-stack, mobile, and any tech role.",
+    "About Miray Hirabayashi — background, interests, and career goals as a software engineering student with a minor in Cybersecurity.",
 };
 
 const interests = [
@@ -22,102 +16,97 @@ const interests = [
   "Developer tooling",
 ];
 
+/** Each paragraph leads with a dark phrase, then continues in gray. */
+const story: [lead: string, rest: string][] = [
+  [
+    "I turn ideas into polished, production-ready software,",
+    " with a strong focus on both the user experience and the architecture that supports it.",
+  ],
+  [
+    "My work spans full-stack web, mobile apps, and Python data tools.",
+    " At the Iowa DOT, I built a CLI that validates and reconciles Workday and Microsoft Access data, eliminating manual verification.",
+  ],
+  [
+    "Cybersecurity shapes how I build,",
+    " from API design to data handling.",
+  ],
+];
+
 export default function AboutPage() {
   return (
     <>
-      <Section>
-        <SectionHeading eyebrow="About" title="Hi, I'm Miray." />
-
-        <div className="mt-10 grid gap-12 lg:grid-cols-3">
-          <div className="space-y-6 text-lg leading-relaxed text-muted lg:col-span-2">
-            <p>
-              I&apos;m a software engineering student at{" "}
-              <span className="text-text">Iowa State University</span> with a
-              minor in Cybersecurity, graduating in May 2027. I enjoy turning ideas into polished, 
-              production-ready software, 
-              with a strong focus on both user experience and the architecture that supports it.
-            </p>
-            <p>
-              My work spans full-stack web development, mobile apps, and
-              Python-based data tools. At the Iowa DOT, I built a Python CLI
-              application that validates and reconciles Workday and Microsoft
-              Access data, processing 11,000+ records and eliminating manual
-              verification. My cybersecurity minor shapes how I think about the
-              systems I build, from API design to data handling.
-            </p>
-            <p>
-              Outside of coursework, I build projects like NextClose, a stock
-              movement predictor trained on 35+ years of market data, and Iowa
-              After Class, an event discovery platform for students in Iowa.
-              I&apos;m also a teaching assistant for Operating Systems (CPRE
-              3080), helping 20+ students debug C programs and make sense of
-              processes, threads, and memory.
-            </p>
-
-            <div className="flex items-center gap-2 pt-2 text-base text-muted">
-              <MapPinIcon width={18} height={18} className="text-accent" />
-              {site.location}
-            </div>
-          </div>
-
-          <aside className="space-y-8">
-            <div>
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-accent">
-                Interests
-              </h3>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {interests.map((i) => (
-                  <Tag key={i}>{i}</Tag>
-                ))}
-              </div>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-accent">
-                Career goals
-              </h3>
-              <p className="mt-4 text-sm leading-relaxed text-muted">
-                To join a team — in any tech discipline — where I can grow as an
-                engineer, ship products that reach real users, and keep raising
-                the bar on quality and craft.
-              </p>
-            </div>
-          </aside>
-        </div>
-      </Section>
-
-      <Section className="border-t border-border">
-        <SectionHeading
-          eyebrow="Toolkit"
-          title="Skills & technologies"
-          description="The languages, frameworks, and tools I reach for most often."
+      {/* ---------------------------------------------------------- Intro */}
+      <section className="flex flex-col items-center px-5 pb-14 pt-14 text-center sm:pb-24 sm:pt-28">
+        <div
+          aria-hidden
+          className="h-28 w-28 rounded-full bg-gradient-to-br from-[#5e5ce6] via-[#0a84ff] to-[#64d2ff] sm:h-40 sm:w-40"
         />
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {skills.map((group) => (
-            <div
-              key={group.group}
-              className="rounded-2xl border border-border bg-surface p-6"
+        <h1 className="text-display mt-6 text-[44px] font-semibold leading-[1.05] text-ink sm:text-[64px] lg:text-[80px]">
+          Hi, I&apos;m Miray.
+        </h1>
+        <p className="mt-4 max-w-[46rem] text-[19px] leading-snug text-muted sm:text-[24px]">
+          Software engineering student at Iowa State University, minor in
+          Cybersecurity. Graduating May 2027.
+        </p>
+        <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <Button href={site.resumePath} download>
+            Download résumé
+          </Button>
+          <Button href="/contact" variant="secondary">
+            Get in touch
+          </Button>
+        </div>
+      </section>
+
+      {/* ---------------------------------------------------------- Story */}
+      <section className="bg-mist px-6 py-14 sm:px-8 sm:py-28">
+        <div className="mx-auto max-w-[980px] space-y-7 sm:space-y-10">
+          {story.map(([lead, rest]) => (
+            <p
+              key={lead}
+              className="text-display text-[26px] font-semibold leading-[1.27] text-muted sm:text-[40px] sm:leading-[1.25]"
             >
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-accent">
-                {group.group}
-              </h3>
-              <ul className="mt-4 space-y-2">
-                {group.items.map((item) => (
-                  <li key={item} className="text-sm text-muted">
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
+              <span className="text-ink">{lead}</span>
+              {rest}
+            </p>
           ))}
         </div>
+      </section>
 
-        <div className="mt-12">
-          <ButtonLink href="/contact">
-            Work with me
-            <ArrowRightIcon width={18} height={18} />
-          </ButtonLink>
+      {/* ----------------------------------------------- Interests & goals */}
+      <section className="grid gap-3 p-3 md:grid-cols-2">
+        <div className="bg-mist px-7 py-11 sm:px-14 sm:py-16 md:min-h-[420px]">
+          <Eyebrow>Interests</Eyebrow>
+          <h2 className="text-display mt-4 text-[30px] font-semibold text-ink sm:text-[40px]">
+            What I&apos;m into.
+          </h2>
+          <ul className="mt-5 flex flex-wrap gap-2 sm:gap-2.5">
+            {interests.map((i) => (
+              <li
+                key={i}
+                className="rounded-full bg-canvas px-3.5 py-2 text-[14px] font-medium text-ink sm:px-[18px] sm:py-2.5 sm:text-[15px]"
+              >
+                {i}
+              </li>
+            ))}
+          </ul>
         </div>
-      </Section>
+
+        <div className="bg-night px-7 py-11 sm:px-14 sm:py-16 md:min-h-[420px]">
+          <Eyebrow dark>Career goals</Eyebrow>
+          <h2 className="text-display mt-4 text-[30px] font-semibold text-cloud sm:text-[40px]">
+            Where I&apos;m headed.
+          </h2>
+          <p className="mt-5 text-[17px] leading-[26px] text-ash sm:text-[21px] sm:leading-[31px]">
+            To join a team, in any tech discipline, where I can grow as an
+            engineer, ship products that reach real users, and keep raising the
+            bar on quality and craft.
+          </p>
+          <p className="mt-5 text-[14px] font-medium text-link-dark sm:text-[15px]">
+            {site.location}
+          </p>
+        </div>
+      </section>
     </>
   );
 }
