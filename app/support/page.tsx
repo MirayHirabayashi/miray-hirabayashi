@@ -1,53 +1,66 @@
 import type { Metadata } from "next";
-import { site, faqs } from "@/lib/site";
-import { Section, SectionHeading, ButtonAnchor } from "@/components/ui";
-import { MailIcon } from "@/components/icons";
+import { faqs, site } from "@/lib/site";
+import { InfoCard, PageHero } from "@/components/ui";
+import { BugIcon, MailIcon } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "Support & FAQ",
   description:
-    "Frequently asked questions and support information for Miray Hirabayashi's portfolio and apps.",
+    "How to get help with Miray Hirabayashi's portfolio and projects, plus answers to common questions.",
 };
 
 export default function SupportPage() {
   return (
-    <Section>
-      <SectionHeading
-        eyebrow="Support"
-        title="Support & FAQ"
-        description="Answers to common questions. Can't find what you need? Reach out anytime."
+    <>
+      <PageHero
+        title="Support."
+        subtitle="Found a broken link, have a question about a project, or need something else? Here's how to get help."
       />
 
-      <div className="mt-12 max-w-3xl space-y-4">
-        {faqs.map((faq) => (
-          <details
-            key={faq.q}
-            className="group rounded-2xl border border-border bg-surface p-6 [&_summary::-webkit-details-marker]:hidden"
-          >
-            <summary className="flex cursor-pointer items-center justify-between gap-4 text-base font-medium text-text">
-              {faq.q}
-              <span className="text-accent transition-transform duration-200 group-open:rotate-45">
-                +
-              </span>
-            </summary>
-            <p className="mt-4 text-sm leading-relaxed text-muted">{faq.a}</p>
-          </details>
-        ))}
+      <div className="mx-auto grid max-w-[1176px] gap-3 px-5 sm:px-8 md:grid-cols-2">
+        <InfoCard
+          icon={<MailIcon width={32} height={32} />}
+          title="Email me."
+          link={{ label: `${site.email} ›`, href: `mailto:${site.email}` }}
+        >
+          The fastest way to reach me about anything on this site or my
+          projects.
+        </InfoCard>
+        <InfoCard
+          icon={<BugIcon width={32} height={32} />}
+          title="Report an issue."
+          link={{ label: "Go to GitHub ›", href: site.socials.github }}
+        >
+          Spotted a bug in one of my open-source projects? Open an issue on its
+          GitHub repo.
+        </InfoCard>
       </div>
 
-      <div className="mt-12 flex flex-col gap-4 rounded-2xl border border-border bg-surface p-8 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h2 className="text-lg font-semibold text-text">Still need help?</h2>
-          <p className="mt-1 text-sm text-muted">
-            For app support or anything else, send me an email and I&apos;ll get
-            back to you.
-          </p>
+      <section className="mx-auto max-w-[980px] px-5 pb-16 pt-14 sm:px-8 sm:pb-28 sm:pt-20">
+        <h2 className="text-display text-[30px] font-semibold leading-tight text-ink md:text-center md:text-[48px]">
+          Frequently asked questions.
+        </h2>
+        <div className="mt-8 border-b border-hairline md:mt-10">
+          {faqs.map((faq, i) => (
+            <details key={faq.q} open={i === 0} className="group border-t border-hairline">
+              <summary className="flex cursor-pointer items-start justify-between gap-4 py-5 md:items-center md:py-[26px]">
+                <span className="text-[17px] font-semibold leading-6 tracking-[-0.01em] text-ink md:text-[21px]">
+                  {faq.q}
+                </span>
+                <span
+                  aria-hidden
+                  className="text-[22px] leading-6 text-link transition-transform duration-200 group-open:rotate-45 md:text-[28px]"
+                >
+                  +
+                </span>
+              </summary>
+              <p className="-mt-1 pb-5 text-[15px] leading-[22px] text-muted md:pb-[26px] md:text-[17px] md:leading-[26px]">
+                {faq.a}
+              </p>
+            </details>
+          ))}
         </div>
-        <ButtonAnchor href={`mailto:${site.email}`} className="flex-none">
-          <MailIcon width={18} height={18} />
-          Email support
-        </ButtonAnchor>
-      </div>
-    </Section>
+      </section>
+    </>
   );
 }
