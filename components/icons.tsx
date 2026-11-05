@@ -13,44 +13,11 @@ const base = {
   strokeLinejoin: "round" as const,
 };
 
-export function ArrowRightIcon(props: IconProps) {
-  return (
-    <svg {...base} aria-hidden {...props}>
-      <path d="M5 12h14M13 6l6 6-6 6" />
-    </svg>
-  );
-}
-
-export function DownloadIcon(props: IconProps) {
-  return (
-    <svg {...base} aria-hidden {...props}>
-      <path d="M12 3v12M7 11l5 5 5-5M5 21h14" />
-    </svg>
-  );
-}
-
 export function MailIcon(props: IconProps) {
   return (
     <svg {...base} aria-hidden {...props}>
       <rect x="3" y="5" width="18" height="14" rx="2" />
       <path d="m3 7 9 6 9-6" />
-    </svg>
-  );
-}
-
-export function MapPinIcon(props: IconProps) {
-  return (
-    <svg {...base} aria-hidden {...props}>
-      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-      <circle cx="12" cy="10" r="3" />
-    </svg>
-  );
-}
-
-export function ExternalLinkIcon(props: IconProps) {
-  return (
-    <svg {...base} aria-hidden {...props}>
-      <path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
     </svg>
   );
 }
@@ -70,7 +37,6 @@ export function CloseIcon(props: IconProps) {
     </svg>
   );
 }
-
 
 export function GitHubIcon(props: IconProps) {
   return (

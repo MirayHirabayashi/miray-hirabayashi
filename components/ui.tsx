@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { ComponentProps, ReactNode } from "react";
+import type { ReactNode } from "react";
 
 /** Centered, max-width content wrapper. */
 export function Container({
@@ -248,88 +248,5 @@ export function InfoCard({
         </a>
       ) : null}
     </div>
-  );
-}
-
-/* ------------------------------------------------------ Legacy primitives
-   Kept temporarily so pages not yet migrated keep compiling. Removed once
-   every page uses the new primitives above.
-------------------------------------------------------------------------- */
-
-
-export function Section({
-  className = "",
-  children,
-  id,
-}: {
-  className?: string;
-  children: ReactNode;
-  id?: string;
-}) {
-  return (
-    <section id={id} className={`py-16 sm:py-24 ${className}`}>
-      <Container>{children}</Container>
-    </section>
-  );
-}
-
-export function SectionHeading({
-  eyebrow,
-  title,
-  description,
-  className = "",
-}: {
-  eyebrow?: string;
-  title: ReactNode;
-  description?: ReactNode;
-  className?: string;
-}) {
-  return (
-    <div className={`max-w-2xl ${className}`}>
-      {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
-      <h2 className="mt-3 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-        {title}
-      </h2>
-      {description ? (
-        <p className="mt-4 text-lg leading-relaxed text-muted">{description}</p>
-      ) : null}
-    </div>
-  );
-}
-
-type LegacyVariant = "primary" | "secondary" | "ghost";
-const legacyStyles: Record<LegacyVariant, string> = {
-  primary: buttonStyles.primary,
-  secondary: buttonStyles.secondary,
-  ghost: "text-muted hover:text-ink",
-};
-const legacyBase =
-  "inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-colors";
-
-export function ButtonLink({
-  variant = "primary",
-  className = "",
-  ...props
-}: ComponentProps<typeof Link> & { variant?: LegacyVariant }) {
-  return (
-    <Link className={`${legacyBase} ${legacyStyles[variant]} ${className}`} {...props} />
-  );
-}
-
-export function ButtonAnchor({
-  variant = "primary",
-  className = "",
-  ...props
-}: ComponentProps<"a"> & { variant?: LegacyVariant }) {
-  return (
-    <a className={`${legacyBase} ${legacyStyles[variant]} ${className}`} {...props} />
-  );
-}
-
-export function Tag({ children }: { children: ReactNode }) {
-  return (
-    <span className="rounded-full bg-mist px-3 py-1 text-xs font-medium text-muted">
-      {children}
-    </span>
   );
 }
