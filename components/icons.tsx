@@ -87,3 +87,30 @@ export function LinkedInIcon(props: IconProps) {
     </svg>
   );
 }
+
+export function PersonIcon(props: IconProps) {
+  return (
+    <svg {...base} aria-hidden {...props}>
+      <circle cx="12" cy="8.5" r="3.8" />
+      <path d="M4.5 20c1.2-3.6 4-5.3 7.5-5.3s6.3 1.7 7.5 5.3" />
+    </svg>
+  );
+}
+
+export function LockIcon(props: IconProps) {
+  return (
+    <svg {...base} aria-hidden {...props}>
+      <rect x="4.5" y="10.5" width="15" height="10" rx="2.5" />
+      <path d="M8 10.5V7.5a4 4 0 0 1 8 0v3" />
+    </svg>
+  );
+}
+
+export function BugIcon(props: IconProps) {
+  return (
+    <svg {...base} aria-hidden {...props}>
+      <rect x="7" y="7.5" width="10" height="12" rx="5" />
+      <path d="M9 7.5a3 3 0 0 1 6 0M12 11v8M3.5 13H7M17 13h3.5M4.5 8.5 7 10M19.5 8.5 17 10M4.5 18.5 7 17M19.5 18.5 17 17" />
+    </svg>
+  );
+}

@@ -217,6 +217,40 @@ export function Eyebrow({
   );
 }
 
+/** Gray rounded card with an icon, title, body and optional link. */
+export function InfoCard({
+  icon,
+  title,
+  children,
+  link,
+}: {
+  icon: ReactNode;
+  title: string;
+  children: ReactNode;
+  link?: { label: string; href: string };
+}) {
+  return (
+    <div className="flex h-full flex-col rounded-[24px] bg-mist px-6 pb-[30px] pt-7 md:rounded-[28px] md:px-9 md:pb-10 md:pt-9">
+      <span className="text-accent">{icon}</span>
+      <h2 className="mt-4 text-[21px] font-semibold tracking-[-0.015em] text-ink md:mt-[18px] md:text-[24px]">
+        {title}
+      </h2>
+      <p className="mt-2 text-[16px] leading-[23px] text-muted md:text-[17px] md:leading-[25px]">
+        {children}
+      </p>
+      {link ? (
+        <a
+          href={link.href}
+          {...(link.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+          className="mt-2 text-[16px] text-link hover:underline md:text-[17px]"
+        >
+          {link.label}
+        </a>
+      ) : null}
+    </div>
+  );
+}
+
 /* ------------------------------------------------------ Legacy primitives
    Kept temporarily so pages not yet migrated keep compiling. Removed once
    every page uses the new primitives above.
