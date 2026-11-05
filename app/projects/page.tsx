@@ -1,28 +1,44 @@
 import type { Metadata } from "next";
-import { projects } from "@/lib/site";
-import { Section, SectionHeading } from "@/components/ui";
+import { projects, site } from "@/lib/site";
+import { PageHero, TileHeader } from "@/components/ui";
 import { ProjectCard } from "@/components/ProjectCard";
 
 export const metadata: Metadata = {
   title: "Projects",
   description:
-    "A selection of iOS and full-stack projects by Miray Hirabayashi, including tech stacks, source code, or live demos.",
+    "Full-stack, mobile, and machine learning projects by Miray Hirabayashi, with tech stacks, source code, and live demos.",
 };
 
 export default function ProjectsPage() {
+  const showcase = projects.filter((p) => p.showcase);
+
   return (
-    <Section>
-      <SectionHeading
-        eyebrow="Portfolio"
-        title="Projects"
-        description="From mobile apps to full-stack web tools, each project below lists its stack with links to the source code or a live demo where available."
+    <>
+      <PageHero
+        title="Projects."
+        subtitle="A few things I've designed and built, from mobile apps to full-stack web tools."
       />
 
-      <div className="mt-14 grid auto-rows-fr gap-6 md:grid-cols-2">
-        {projects.map((project) => (
-          <ProjectCard key={project.slug} project={project} />
-        ))}
-      </div>
-    </Section>
+      <section className="px-5 pb-16 sm:px-8 sm:pb-32">
+        <div className="mx-auto grid max-w-[1176px] gap-3 md:grid-cols-2">
+          {showcase.map((project) => (
+            <ProjectCard key={project.slug} project={project} />
+          ))}
+        </div>
+      </section>
+
+      <section className="bg-mist py-16 sm:py-24">
+        <TileHeader
+          title="More on GitHub."
+          subtitle={
+            <span className="text-muted">
+              Experiments, coursework, and works in progress.
+            </span>
+          }
+          size="small"
+          actions={[{ label: "Visit GitHub", href: site.socials.github }]}
+        />
+      </section>
+    </>
   );
 }
