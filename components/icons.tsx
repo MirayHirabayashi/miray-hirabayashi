@@ -58,7 +58,7 @@ export function ExternalLinkIcon(props: IconProps) {
 export function MenuIcon(props: IconProps) {
   return (
     <svg {...base} aria-hidden {...props}>
-      <path d="M4 6h16M4 12h16M4 18h16" />
+      <path d="M4 9h16M4 15h16" />
     </svg>
   );
 }
