@@ -107,7 +107,7 @@ export function TileHeader({
   const large = size === "large";
 
   return (
-    <div className="mx-auto flex max-w-3xl flex-col items-center px-5 text-center">
+    <div className="mx-auto flex max-w-[980px] flex-col items-center px-5 text-center">
       {eyebrow ? (
         <p
           className={`text-[12px] font-semibold uppercase tracking-[0.04em] sm:text-[14px] ${
