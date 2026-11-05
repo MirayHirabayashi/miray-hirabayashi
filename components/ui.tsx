@@ -175,7 +175,7 @@ export function PageHero({
         {title}
       </h1>
       {subtitle ? (
-        <p className="mx-auto mt-4 max-w-[52rem] text-[19px] leading-snug text-muted sm:text-[24px]">
+        <p className="mx-auto mt-4 max-w-[940px] text-[19px] leading-snug text-muted sm:text-[24px]">
           {subtitle}
         </p>
       ) : null}
