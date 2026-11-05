@@ -1,18 +1,18 @@
 # Miray Hirabayashi — Portfolio
 
-A dark, minimalist personal portfolio for **Miray Hirabayashi**, a senior software engineering student at Iowa State University. Built to showcase projects, skills, and experience with a clean, professional feel.
+A bright, product-page-style personal portfolio for **Miray Hirabayashi**, a senior software engineering student at Iowa State University. Projects are presented as full-width tiles that alternate light and dark panels, each with its own illustration.
 
 🔗 **Live site:** [miray.dev](https://miray.dev)
 
 ## Features
 
-- **Home** — full-screen hero with name, title, tagline, and clear calls to action
-- **Projects** — featured work with descriptions, tech stacks, and links to code/demos
-- **Resume** — embedded PDF with download, plus experience, education, and skills
+- **Home** — full-width project tiles with SVG illustrations, a toolkit grid, and a closing call to action
+- **Projects** — large project cards with tech stacks and links to code or live demos
+- **Résumé** — spec-sheet layout of education, experience, projects, and skills, with a PDF download
 - **About** — professional bio, interests, and career goals
-- **Contact** — email, LinkedIn, GitHub, and a contact form
+- **Contact** — email, LinkedIn, and GitHub cards, plus availability and résumé panels
 - **Legal** — Privacy Policy and Support / FAQ pages
-- Fully responsive, SEO-friendly (metadata, sitemap, robots), and fast (static pre-rendering)
+- Fully responsive with a full-screen mobile menu, SEO-friendly (metadata, sitemap, robots), and fast (static pre-rendering)
 
 ## Tech stack
 
