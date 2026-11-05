@@ -73,10 +73,10 @@ export default function ContactPage() {
         {/* Availability + résumé */}
         <div className="grid gap-3 md:grid-cols-2">
           <section className="rounded-[24px] bg-mist px-6 pb-6 pt-8 md:min-h-[440px] md:rounded-[28px] md:p-12">
-            <p className="flex items-center gap-2">
+            <div className="flex items-center gap-2">
               <span aria-hidden className="h-2.5 w-2.5 rounded-full bg-[#30d158]" />
               <Eyebrow>Available</Eyebrow>
-            </p>
+            </div>
             <h2 className="text-display mt-4 text-[30px] font-semibold leading-tight text-ink md:text-[40px]">
               {availability.headline}.
             </h2>
