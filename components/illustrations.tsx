@@ -131,8 +131,8 @@ export function GlobeIllustration({ className = "" }: { className?: string }) {
       </svg>
 
       {/* Floating stat chips (wider screens only, where there's room). */}
-      <StatChip className="left-[-22%] top-[30%]" title="Log it" detail="every place you've been" />
-      <StatChip className="right-[-24%] top-[56%]" title="Three.js" detail="interactive 3D globe" />
+      <StatChip className="left-[-19%] top-[33%]" title="Log it" detail="every place you've been" />
+      <StatChip className="right-[-13%] top-[56%]" title="Three.js" detail="interactive 3D globe" />
     </div>
   );
 }
@@ -140,7 +140,7 @@ export function GlobeIllustration({ className = "" }: { className?: string }) {
 function StatChip({ title, detail, className }: { title: string; detail: string; className: string }) {
   return (
     <div
-      className={`absolute hidden rounded-2xl border border-white/10 bg-[#1c1c1e]/85 px-[18px] py-3 backdrop-blur md:block ${className}`}
+      className={`absolute hidden rounded-2xl border border-white/10 bg-[#1c1c1e]/85 px-[18px] py-3 backdrop-blur lg:block ${className}`}
     >
       <p className="text-[24px] font-semibold tracking-[-0.02em] text-cloud">{title}</p>
       <p className="text-[12px] text-ash">{detail}</p>
@@ -246,19 +246,19 @@ export function AndroidCrmIllustration({ className = "" }: { className?: string 
   return (
     <div aria-hidden className={`relative mx-auto w-[300px] sm:w-[560px] ${className}`}>
       {/* Phone */}
-      <div className="mx-auto w-[220px] rounded-[34px] bg-ink p-2 shadow-[0_16px_36px_rgba(0,0,0,0.18)]">
+      <div className="mx-auto w-[232px] rounded-[34px] bg-ink p-2 shadow-[0_16px_36px_rgba(0,0,0,0.18)]">
         <div className="relative h-[444px] rounded-[27px] bg-canvas px-[14px] pt-2">
-          <div className="flex items-center justify-between px-2">
+          <div className="flex items-center justify-between">
             <span className="text-[11px] font-semibold text-ink">9:41</span>
             <span className="mt-1 h-3 w-3 rounded-full bg-ink" />
             <span className="w-6" />
           </div>
-          <p className="mt-4 px-2 text-[22px] font-semibold tracking-[-0.02em] text-ink">Contacts</p>
-          <div className="mt-3 flex gap-1.5 px-2">
+          <p className="mt-4 text-[22px] font-semibold tracking-[-0.02em] text-ink">Contacts</p>
+          <div className="mt-3 flex gap-1.5">
             {["Leads", "Active", "Closed"].map((t, i) => (
               <span
                 key={t}
-                className={`rounded-full px-3 py-1 text-[11px] font-medium ${
+                className={`rounded-full px-[11px] py-1 text-[11px] font-medium ${
                   i === 0 ? "bg-accent text-white" : "bg-mist text-ink"
                 }`}
               >
@@ -266,7 +266,7 @@ export function AndroidCrmIllustration({ className = "" }: { className?: string 
               </span>
             ))}
           </div>
-          <ul className="mt-4 px-2">
+          <ul className="mt-4">
             {contacts.map((c) => (
               <li key={c} className="flex items-center gap-3 border-b border-[#e5e5ea] py-[11px]">
                 <span className="h-9 w-9 flex-none rounded-full" style={{ backgroundColor: c }} />
@@ -305,7 +305,8 @@ function StageCard({ className, dot, label, value }: { className: string; dot: s
 /* ---------------------------------------------------------------- Iowa DOT */
 
 const terminal: { text: string; tone: string; strong?: boolean }[] = [
-  { text: "$ reconcile --source workday --target access", tone: "text-ink", strong: true },
+  // Non-breaking hyphens (U+2011) keep each flag intact when the line wraps on phones.
+  { text: "$ reconcile ‑‑source workday ‑‑target access", tone: "text-ink", strong: true },
   { text: "→ loading records…", tone: "text-muted" },
   { text: "✓ schema validated", tone: "text-[#248a3d]" },
   { text: "✓ duplicates resolved", tone: "text-[#248a3d]" },
@@ -317,16 +318,16 @@ export function TerminalIllustration({ className = "" }: { className?: string })
   return (
     <div
       aria-hidden
-      className={`mx-5 w-[calc(100%-2.5rem)] max-w-[560px] overflow-hidden rounded-[18px] bg-canvas shadow-[0_10px_30px_rgba(0,0,0,0.08)] ${className}`}
+      className={`mx-5 self-start w-[calc(100%-2.5rem)] max-w-[560px] overflow-hidden rounded-[18px] bg-canvas shadow-[0_10px_30px_rgba(0,0,0,0.08)] ${className}`}
     >
       <div className="flex gap-[7px] border-b border-[#e5e5ea] px-[18px] py-4">
         {["#ff5f57", "#febc2e", "#28c840"].map((c) => (
           <span key={c} className="h-[11px] w-[11px] rounded-full" style={{ backgroundColor: c }} />
         ))}
       </div>
-      <div className="space-y-2.5 overflow-x-auto px-6 py-5 font-mono text-[12px] sm:text-[14px]">
+      <div className="space-y-2.5 overflow-x-auto px-6 py-5 text-[13px] sm:text-[15px]">
         {terminal.map((l) => (
-          <p key={l.text} className={`whitespace-nowrap ${l.tone} ${l.strong ? "font-medium" : ""}`}>
+          <p key={l.text} className={`sm:whitespace-nowrap ${l.tone} ${l.strong ? "font-medium" : ""}`}>
             {l.text}
           </p>
         ))}

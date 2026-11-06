@@ -108,9 +108,9 @@ export default function Home() {
         title="The whole world. Logged."
         subtitle="A 3D travel tracker built with Next.js, Three.js, and Prisma."
         actions={projectActions("globebase")}
-        className="h-[620px] md:h-[780px]"
+        className="h-[620px] md:h-[800px]"
       >
-        <GlobeIllustration className="w-[300px] md:w-[560px]" />
+        <GlobeIllustration className="w-[300px] flex-none md:-mt-14 md:w-[710px]" />
       </Tile>
 
       {/* ---------------------------------------------- Iowa After Class */}
@@ -145,7 +145,7 @@ export default function Home() {
           size="small"
           eyebrow="Team project"
           title="WorkSync"
-          subtitle="A collaborative CRM Android app, built with Java and Spring Boot."
+          subtitle="A CRM Android app, built with Java and Spring Boot."
           actions={projectActions("worksync")}
           className="h-[560px] md:h-[600px]"
         >
